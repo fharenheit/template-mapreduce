@@ -564,15 +564,10 @@
         </dependency>
     </dependencies>
 
-    <ciManagement>
-        <system>Jetbrains TeamCity</system>
-        <url>http://115.68.14.50:8111</url>
-    </ciManagement>
-
     <scm>
-        <connection>scm:svn:</connection>
-        <developerConnection>scm:svn:</developerConnection>
-        <url>http://fisheye.openflamingo.org</url>
+        <connection>scm:git:https://github.com/fharenheit/template-mapreduce.git</connection>
+        <developerConnection>scm:git:https://github.com/fharenheit/template-mapreduce.git</developerConnection>
+        <url>https://github.com/fharenheit/template-mapreduce</url>
     </scm>
 
     <distributionManagement>
@@ -589,8 +584,8 @@
     </distributionManagement>
 
     <issueManagement>
-        <system>Redmine</system>
-        <url>http://jira.openflamingo.org</url>
+        <system>Github</system>
+        <url>https://github.com/fharenheit/template-mapreduce/issues</url>
     </issueManagement>
 
     <organization>
