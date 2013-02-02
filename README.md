@@ -20,6 +20,70 @@ Flamingo Community의 MapReduce Job 템플릿 프로젝트
 
 ```text
 #mvn package
+[INFO]
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Flamingo MapReduce Template 0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO]
+[INFO] --- maven-clean-plugin:2.4.1:clean (default-clean) @ mapreduce-template ---
+[INFO] Deleting C:\Users\Cloudine\Desktop\mapreduce-template-0.1\target
+[INFO]
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ mapreduce-template ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 1 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ mapreduce-template ---
+[INFO] Compiling 40 source files to C:\Users\Cloudine\Desktop\mapreduce-template-0.1\target\classes
+[INFO]
+[INFO] --- maven-resources-plugin:2.5:testResources (default-testResources) @ mapreduce-template ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] Copying 0 resource
+[INFO]
+[INFO] --- maven-compiler-plugin:2.3.2:testCompile (default-testCompile) @ mapreduce-template ---
+[INFO] Compiling 1 source file to C:\Users\Cloudine\Desktop\mapreduce-template-0.1\target\test-classes
+[INFO]
+[INFO] --- maven-surefire-plugin:2.10:test (default-test) @ mapreduce-template ---
+[INFO] Surefire report directory: C:\Users\Cloudine\Desktop\mapreduce-template-0.1\target\surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.openflamingo.mapreduce.etl.groupby.GroupByMapReduceTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.6 sec
+
+Results :
+
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+
+[INFO]
+[INFO] --- maven-dependency-plugin:2.1:unpack (unpack) @ mapreduce-template ---
+[INFO] Configured Artifact: com.google.guava:guava:r09:jar
+[INFO] Configured Artifact: org.apache.mahout.commons:commons-cli:2.0-mahout:jar
+[INFO] Configured Artifact: commons-cli:commons-cli:1.2:jar
+[INFO] Configured Artifact: commons-lang:commons-lang:2.5:jar
+[INFO] Unpacking C:\Users\Cloudine\.m2\repository\com\google\guava\guava\r09\guava-r09.jar to
+  C:\Users\Cloudine\Desktop\mapreduce-template-0.1\target\classes
+   with includes null and excludes:null
+[INFO] Unpacking C:\Users\Cloudine\.m2\repository\org\apache\mahout\commons\commons-cli\2.0-mahout\commons-cli-2.0-mahout.jar to
+  C:\Users\Cloudine\Desktop\mapreduce-template-0.1\target\classes
+   with includes null and excludes:null
+[INFO] Unpacking C:\Users\Cloudine\.m2\repository\commons-cli\commons-cli\1.2\commons-cli-1.2.jar to
+  C:\Users\Cloudine\Desktop\mapreduce-template-0.1\target\classes
+   with includes null and excludes:null
+[INFO] Unpacking C:\Users\Cloudine\.m2\repository\commons-lang\commons-lang\2.5\commons-lang-2.5.jar to
+  C:\Users\Cloudine\Desktop\mapreduce-template-0.1\target\classes
+   with includes null and excludes:null
+[INFO]
+[INFO] --- maven-jar-plugin:2.3.2:jar (default-jar) @ mapreduce-template ---
+[INFO] Building jar: C:\Users\Cloudine\Desktop\mapreduce-template-0.1\target\mapreduce-template-0.1-SNAPSHOT.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 9.110s
+[INFO] Finished at: Sun Feb 03 03:41:10 KST 2013
+[INFO] Final Memory: 21M/328M
+[INFO] ------------------------------------------------------------------------
 ```
 
 위 과정에는 다음의 작업이 실행됩니다.
