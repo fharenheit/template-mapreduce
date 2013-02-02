@@ -40,7 +40,7 @@ MapReduce Job을 최소의 노력으로 Hadoop에서 실행하려면 다음의 �
 
 ### Driver 작성하기
 
-Driver는 다음과 같이 Configured, Tool을 상속 및 구현하며 최소 형식은 다음과 같다.
+Driver는 다음과 같이 Configured, Tool을 상속 및 구현하며 최소 형식은 다음과 같습니다.
 
 ```java
 public class SampleDriver extends org.apache.hadoop.conf.Configured implements org.apache.hadoop.util.Tool {
@@ -325,7 +325,7 @@ public class WordcountReducer extends Reducer<Text, IntWritable, Text, IntWritab
     protected void cleanup(Context context) throws IOException, InterruptedException {
     }
 }
-```java
+```
 
 ### Program Driver에 MapReduce Driver 등록하기
 
