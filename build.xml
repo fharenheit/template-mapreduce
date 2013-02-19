@@ -80,6 +80,7 @@
                 destdir="${basedir}/target/javadoc"
                 Encoding="${encoding}"
                 Locale="ko_KR"
+                useexternalfile="true"
                 docencoding="${encoding}"
                 charset="${encoding}"
                 Author="true"
@@ -91,10 +92,13 @@
                 Windowtitle="${javadoc.title}"
                 Doctitle="${javadoc.title}">
 
-            <link href="http://docs.oracle.com/javase/6/docs/api/"/>
-            <link href="http://www.slf4j.org/apidocs/"/>
-            <link href="http://commons.apache.org/logging/commons-logging-1.1.1/apidocs/"/>
-            <link href="http://logging.apache.org/log4j/1.2/apidocs/"/>
+            <link href="http://docs.oracle.com/javase/6/docs/api"/>
+            <link href="http://commons.apache.org/lang/api-2.6"/>
+            <link href="http://commons.apache.org/cli/api-release"/>
+            <link href="http://commons.apache.org/sandbox/cli2/apidocs"/>
+            <link href="http://www.slf4j.org/apidocs"/>
+            <link href="http://commons.apache.org/logging/commons-logging-1.1.1/apidocs"/>
+            <link href="http://logging.apache.org/log4j/1.2/apidocs"/>
             <link href="http://commons.apache.org/io/apidocs"/>
             <link href="http://junit.sourceforge.net/javadoc"/>
             <link href="http://hadoop.apache.org/docs/r1.0.3/api"/>
@@ -139,6 +143,7 @@
                 destdir="${basedir}/target/javadoc"
                 Encoding="${encoding}"
                 Locale="ko_KR"
+                useexternalfile="true"
                 docencoding="${encoding}"
                 charset="${encoding}"
                 Author="true"
@@ -150,10 +155,13 @@
                 Windowtitle="${javadoc.title}"
                 Doctitle="${javadoc.title}">
 
-            <link href="http://docs.oracle.com/javase/6/docs/api/"/>
-            <link href="http://www.slf4j.org/apidocs/"/>
-            <link href="http://commons.apache.org/logging/commons-logging-1.1.1/apidocs/"/>
-            <link href="http://logging.apache.org/log4j/1.2/apidocs/"/>
+            <link href="http://docs.oracle.com/javase/6/docs/api"/>
+            <link href="http://commons.apache.org/lang/api-2.6"/>
+            <link href="http://commons.apache.org/cli/api-release"/>
+            <link href="http://commons.apache.org/sandbox/cli2/apidocs"/>
+            <link href="http://www.slf4j.org/apidocs"/>
+            <link href="http://commons.apache.org/logging/commons-logging-1.1.1/apidocs"/>
+            <link href="http://logging.apache.org/log4j/1.2/apidocs"/>
             <link href="http://commons.apache.org/io/apidocs"/>
             <link href="http://junit.sourceforge.net/javadoc"/>
             <link href="http://hadoop.apache.org/docs/r1.0.3/api"/>

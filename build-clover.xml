@@ -1,0 +1,121 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<project name="vdis-mapreduce" default="zip" basedir=".">
+
+    <!--
+         Atlassian Clover's License : -Dclover.license.path=/home/user/.clover/clover.license
+    -->
+
+    <!-- Change maven repository directory -->
+    <property name="maven.repository" value="${user.home}/.m2/repository"/>
+
+    <property name="encoding" value="UTF-8"/>
+
+    <property environment="env"/>
+
+    <taskdef resource="cloverlib.xml" classpath="${basedir}/etc/clover-ant-3.1.10/lib/clover.jar"/>
+
+    <clover-env/>
+
+    <condition property="clover.history.dir" value="${basedir}/.history">
+        <not>
+            <isset property="clover.history.dir"/>
+        </not>
+    </condition>
+
+    <path id="libpath">
+        <fileset dir="${maven.repository}">
+            <include name="org/apache/hadoop/hadoop-core/1.1.1/hadoop-core-1.1.1.jar"/>
+            <include name="commons-cli/commons-cli/1.2/commons-cli-1.2.jar"/>
+            <include name="commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
+            <include name="org/apache/mahout/mahout-core/0.7/mahout-core-0.7.jar"/>
+            <include name="org/apache/mahout/commons/commons-cli/2.0-mahout/commons-cli-2.0-mahout.jar"/>
+            <include name="com/google/guava/guava/r09/guava-r09.jar"/>
+            <include name="commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar"/>
+            <include name="commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"/>
+            <include name="commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar"/>
+            <include name="log4j/log4j/1.2.16/log4j-1.2.16.jar"/>
+            <include name="org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar"/>
+            <include name="junit/junit/4.10/junit-4.10.jar"/>
+        </fileset>
+        <fileset dir="${basedir}">
+            <include name="lib/mrunit-0.9.0-hadoop1.jar"/>
+            <include name="lib/mockito-all-1.8.5.jar"/>
+            <include name="etc/clover-ant-3.1.10/lib/clover.jar"/>
+        </fileset>
+        <pathelement location="${basedir}/target/classes"/>
+    </path>
+
+    <property name="src" location="${basedir}/src/main/java"/>
+    <property name="test.src" location="${basedir}/src/test/java"/>
+    <property name="app.build" location="${basedir}/target/classes"/>
+    <property name="test.result" location="${basedir}/target/test"/>
+
+    <target name="compile" depends="clean, with.clover">
+        <mkdir dir="${app.build}"/>
+        <javac srcdir="${src}"
+               destdir="${app.build}"
+               classpathref="libpath"
+               source="1.6"/>
+
+        <javac srcdir="${test.src}"
+               destdir="${app.build}"
+               classpathref="libpath"
+               source="1.6"/>
+
+        <copy todir="${app.build}">
+            <fileset dir="${basedir}/src/main/resources"/>
+        </copy>
+        <copy todir="${app.build}">
+            <fileset dir="${basedir}/src/test/resources"/>
+        </copy>
+    </target>
+
+    <target name="test" depends="compile">
+        <mkdir dir="${test.result}"/>
+        <junit fork="true" forkmode="once" printsummary="true" showoutput="true">
+            <classpath refid="libpath"/>
+            <formatter type="xml"/>
+            <batchtest fork="yes" todir="${test.result}">
+                <fileset dir="${app.build}" includes="**/*Test.*"/>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="clean">
+        <delete dir="${basedir}/target"/>
+        <clover-clean/>
+    </target>
+
+    <target name="with.clover">
+        <clover-setup>
+            <files>
+                <exclude name="org/openflamingo/**/*.java"/>
+                <exclude name="**/*Test.*"/>
+            </files>
+        </clover-setup>
+    </target>
+
+    <target name="clover.report" depends="test">
+        <clover-historypoint historydir="${clover.history.dir}">
+            <testsources dir="${test.src}">
+                <include name="**/*Test.*"/>
+            </testsources>
+        </clover-historypoint>
+
+        <clover-html-report outdir="${basedir}/target/html"
+                            title="MapReduce Code Coverage HTML Report"/>
+        <clover-pdf-report outfile="${basedir}/target/summary.pdf"
+                           title="MapReduce Code Coverage PDF Report"/>
+
+        <clover-report>
+            <historical historydir="${clover.history.dir}" outfile="${basedir}/target/historical.pdf">
+                <format type="pdf"/>
+            </historical>
+        </clover-report>
+        <clover-log/>
+    </target>
+
+    <target name="zip" depends="clover.report">
+        <zip destfile="${basedir}/target/detail.zip" basedir="${basedir}/target/html"/>
+    </target>
+</project>
