@@ -37,6 +37,7 @@ package org.openflamingo.mapreduce.util;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -44,20 +45,16 @@ import java.util.*;
 /**
  * Date Utility.
  *
- * @author Edward KIM
- * @author Seo Ji Hye
- * @since 0.2
+ * @author Edward KIM (Cloudine)
+ * @author Seo Ji Hye (Cloudine)
+ * @since 0.1
  */
 public class DateUtils {
 
     /**
      * 현재 날짜의 이전 이후날짜를 더할때 사용하는 Enumeration 상수
      */
-    public static enum TYPE {
-        BEFORE, AFTER
-    }
-
-    ;
+    public static enum TYPE { BEFORE, AFTER };
 
     /**
      * 기본 날짜 변환 포맷
@@ -570,5 +567,22 @@ public class DateUtils {
         buf.append(seconds);
         buf.append("초");
         return buf.toString();
+    }
+
+    /**
+     * 지정한 패턴의 날짜를 포맷팅한다.
+     *
+     * @param pattern    날짜 패턴
+     * @param timeString 날짜 패턴형의 문자열 날짜
+     * @return 날짜
+     * @throws IOException 날짜 패턴을 파싱할 수 없는 경우
+     */
+    public static Date formatDate(String pattern, String timeString) throws IOException {
+        try {
+            SimpleDateFormat format = new SimpleDateFormat(pattern);
+            return format.parse(timeString);
+        } catch (Exception ex) {
+            throw new IOException("지정한 문자열 '" + timeString + "'은 날짜 포맷 '" + pattern + "' 형식이 아닙니다.", ex);
+        }
     }
 }
