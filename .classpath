@@ -23,6 +23,11 @@
   <classpathentry kind="lib" path="lib/nomaven/slf4j-log4j12-1.6.4.jar"/>
   <classpathentry kind="lib" path="lib/nomaven/junit-4.10.jar"/>
   <classpathentry kind="lib" path="lib/nomaven/hive-exec-0.9.0.jar"/>
+  <classpathentry kind="lib" path="lib/nomaven/hadoop-test-1.1.1.jar"/>
+  <classpathentry kind="lib" path="lib/nomaven/commons-collections-3.2.1.jar"/>
+  <classpathentry kind="lib" path="lib/nomaven/jetty-6.1.26.jar"/>
+  <classpathentry kind="lib" path="lib/nomaven/jetty-util-6.1.26.jar"/>
+  <classpathentry kind="lib" path="lib/nomaven/servlet-api-2.5-20081211.jar"/>
   <classpathentry kind="lib" path="lib/mrunit-0.9.0-hadoop1.jar"/>
   <classpathentry kind="lib" path="lib/mockito-all-1.8.5.jar"/>
 </classpath>
