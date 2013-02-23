@@ -92,6 +92,8 @@ public class ClusterWordCountMapReduceTest {
         System.setProperty("javax.xml.parsers.SAXParserFactory", "com.sun.org.apache.xerces.internal.jaxp.SAXParserFactoryImpl");
 
         Configuration conf = new Configuration();
+        conf.set("mapred.job.tracker", "127.0.0.1:9000");
+        conf.set("fs.default.name", "hdfs://localhost:9000");
 
         dfsCluster = new MiniDFSCluster(conf, numDataNodes, true, null);
         dfsCluster.getFileSystem().makeQualified(input);
