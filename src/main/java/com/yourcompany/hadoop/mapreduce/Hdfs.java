@@ -67,11 +67,11 @@ public class Hdfs {
         long size = 0;
         FileStatus[] files = fs.listStatus(new Path(path));
         for (FileStatus file : files) {
-            if(!file.isDir()) {
-                System.out.println(file.getPath().toUri().toString());
-                System.out.println(file.getPath().toString());
+                System.out.println("URI         : " + file.getPath().toUri().toString());
+                System.out.println("ToString    : " + file.getPath().toString());
+                System.out.println("Name        : " + file.getPath().getName());
+                System.out.println("Scheme      : " + file.getPath().toUri().getScheme());
             }
-        }
 
         // hadoop fs -ls /movielens_10m | awk '{sum+=$5} END {printf "%.2f MB\n", sum / 1024^2}'
         // sed
