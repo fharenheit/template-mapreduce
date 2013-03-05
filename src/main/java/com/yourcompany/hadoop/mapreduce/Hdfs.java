@@ -15,7 +15,7 @@ public class Hdfs {
 
     public static void printFileInfo(String path) throws IOException {
         Configuration conf = new Configuration();
-        conf.set("fs.default.name", "hdfs://192.168.1.1:9000");
+        conf.set("fs.default.name", "hdfs://125.141.144.168:9000");
         FileSystem fs = FileSystem.get(conf);
 
         if(!fs.exists(new Path(path))) {
@@ -32,7 +32,7 @@ public class Hdfs {
 
     public static void size(String path) throws IOException {
         Configuration conf = new Configuration();
-        conf.set("fs.default.name", "hdfs://192.168.1.1:9000");
+        conf.set("fs.default.name", "hdfs://125.141.144.168:9000");
         FileSystem fs = FileSystem.get(conf);
 
         if(!fs.exists(new Path(path))) {
