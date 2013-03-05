@@ -98,6 +98,8 @@ public class Hdfs {
     public static void copy(String source, String target) throws IOException {
         Configuration conf = new Configuration();
         conf.set("fs.default.name", "hdfs://125.141.144.168:9000");
+        conf.setInt("dfs.replication", 1);
+
         FileSystem fs = FileSystem.get(conf);
 
         if (!fs.exists(new Path(source))) {
