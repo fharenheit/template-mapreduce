@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Hdfs {
 
     public static void main(String[] args) throws IOException {
-        Hdfs.size("/movielens_10m");
+        Hdfs.move(args[0], args[1]);
     }
 
     public static void printFileInfo(String path) throws IOException {
@@ -18,7 +18,7 @@ public class Hdfs {
         conf.set("fs.default.name", "hdfs://125.141.144.168:9000");
         FileSystem fs = FileSystem.get(conf);
 
-        if(!fs.exists(new Path(path))) {
+        if (!fs.exists(new Path(path))) {
             System.err.println("지정한 경로의 디렉토리 또는 파일이 존재하지 않습니다.");
             System.exit(-1);
         }
@@ -35,7 +35,7 @@ public class Hdfs {
         conf.set("fs.default.name", "hdfs://125.141.144.168:9000");
         FileSystem fs = FileSystem.get(conf);
 
-        if(!fs.exists(new Path(path))) {
+        if (!fs.exists(new Path(path))) {
             System.err.println("지정한 경로의 디렉토리 또는 파일이 존재하지 않습니다.");
             System.exit(-1);
         }
@@ -43,7 +43,7 @@ public class Hdfs {
         long size = 0;
         FileStatus[] files = fs.listStatus(new Path(path));
         for (FileStatus file : files) {
-            if(!file.isDir()) {
+            if (!file.isDir()) {
                 size += file.getLen();
             }
         }
@@ -59,7 +59,7 @@ public class Hdfs {
         conf.set("fs.default.name", "hdfs://125.141.144.168:9000");
         FileSystem fs = FileSystem.get(conf);
 
-        if(!fs.exists(new Path(path))) {
+        if (!fs.exists(new Path(path))) {
             System.err.println("지정한 경로의 디렉토리 또는 파일이 존재하지 않습니다.");
             System.exit(-1);
         }
@@ -67,15 +67,32 @@ public class Hdfs {
         long size = 0;
         FileStatus[] files = fs.listStatus(new Path(path));
         for (FileStatus file : files) {
-                System.out.println("URI         : " + file.getPath().toUri().toString());
-                System.out.println("ToString    : " + file.getPath().toString());
-                System.out.println("Name        : " + file.getPath().getName());
-                System.out.println("Scheme      : " + file.getPath().toUri().getScheme());
-            }
+            System.out.println("URI         : " + file.getPath().toUri().toString());
+            System.out.println("ToString    : " + file.getPath().toString());
+            System.out.println("Name        : " + file.getPath().getName());
+            System.out.println("Scheme      : " + file.getPath().toUri().getScheme());
+        }
 
         // hadoop fs -ls /movielens_10m | awk '{sum+=$5} END {printf "%.2f MB\n", sum / 1024^2}'
         // sed
         System.out.println("Size: " + org.apache.hadoop.util.StringUtils.byteDesc(size));
+    }
 
+    public static void move(String source, String target) throws IOException {
+        Configuration conf = new Configuration();
+        conf.set("fs.default.name", "hdfs://125.141.144.168:9000");
+        FileSystem fs = FileSystem.get(conf);
+
+        if (!fs.exists(new Path(source))) {
+            System.err.println("지정한 경로의 디렉토리 또는 파일이 존재하지 않습니다.");
+            System.exit(-1);
+        }
+
+        if(fs.rename(new Path(source), new Path(target))) {
+            System.out.println("파일을 이동했습니다.");
+            System.exit(0);
+        }
+        System.out.println("파일을 이동하지 못했습니다.");
+        System.exit(-1);
     }
 }
