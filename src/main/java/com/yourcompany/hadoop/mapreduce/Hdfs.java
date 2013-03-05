@@ -10,7 +10,7 @@ import java.io.IOException;
 public class Hdfs {
 
     public static void main(String[] args) throws IOException {
-        Hdfs.list("/movielens_10m");
+        Hdfs.size("/movielens_10m");
     }
 
     public static void printFileInfo(String path) throws IOException {
