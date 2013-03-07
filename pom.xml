@@ -75,10 +75,11 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <ftp server="LOCALHOST"
-                                     remotedir="/root"
-                                     userid="USERNAME"
-                                     password="PASSWORD">
+                                <ftp server=""
+                                     remotedir="/"
+                                     userid=""
+                                     password=""
+                                     passive="yes">
                                     <fileset dir="${basedir}/target">
                                         <include name="${project.build.finalName}.${packaging}"/>
                                     </fileset>
