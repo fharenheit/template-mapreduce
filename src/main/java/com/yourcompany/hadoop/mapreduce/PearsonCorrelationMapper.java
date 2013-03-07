@@ -34,27 +34,58 @@
  */
 package com.yourcompany.hadoop.mapreduce;
 
-import org.apache.hadoop.util.ProgramDriver;
-import org.openflamingo.mapreduce.core.Constants;
+import org.apache.hadoop.conf.Configuration;
+import org.apache.hadoop.fs.FSDataInputStream;
+import org.apache.hadoop.fs.FileSystem;
+import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.fs.PathFilter;
+import org.apache.hadoop.io.*;
+import org.apache.hadoop.mapreduce.Mapper;
+
+import java.io.IOException;
 
 /**
- * 모든 MapReduce를 실행하기 위한 Alias를 제공하는 Program Driver.
+ * Sample Mapper
  *
  * @author Edward KIM
- * @since 0.1
+ * @version 0.1
  */
-public class MapReduceDriver {
+public class PearsonCorrelationMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
-    public static void main(String argv[]) {
-        ProgramDriver programDriver = new ProgramDriver();
-        try {
-            programDriver.addClass("pearson", PearsonCorrelationDriver.class, "Pearson Correlation MapReduce Job");
-            programDriver.driver(argv);
-            System.exit(Constants.JOB_SUCCESS);
-        } catch (Throwable e) {
-            e.printStackTrace();
-            System.exit(Constants.JOB_FAIL);
+    private String delimiter;
+
+    @Override
+    protected void setup(Context context) throws IOException, InterruptedException {
+        Configuration configuration = context.getConfiguration();
+        delimiter = configuration.get("delimiter");
+
+        Configuration conf = new Configuration();
+        conf.set("fs.default.name", "hdfs://192.168.1.1:9000");
+
+        FileSystem fs = FileSystem.get(conf);
+        fs.listStatus(new Path("/a"), new PathFilter() {
+            @Override
+            public boolean accept(Path path) {
+                return path.toUri().getPath().endsWith(".txt");
+            }
+        });
+    }
+
+    @Override
+    protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+        String row = value.toString();
+        String[] columns = row.split(delimiter);
+        for(String word : columns) {
+        	context.write(new Text(word), new IntWritable(1));
         }
     }
 }
+
+
+
+
+
+
+
+
 

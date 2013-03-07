@@ -34,27 +34,38 @@
  */
 package com.yourcompany.hadoop.mapreduce;
 
-import org.apache.hadoop.util.ProgramDriver;
-import org.openflamingo.mapreduce.core.Constants;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Reducer;
+
+import java.io.IOException;
 
 /**
- * 모든 MapReduce를 실행하기 위한 Alias를 제공하는 Program Driver.
+ * Sample Reducer
  *
  * @author Edward KIM
- * @since 0.1
+ * @version 0.1
  */
-public class MapReduceDriver {
+public class PearsonCorrelationReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
-    public static void main(String argv[]) {
-        ProgramDriver programDriver = new ProgramDriver();
-        try {
-            programDriver.addClass("pearson", PearsonCorrelationDriver.class, "Pearson Correlation MapReduce Job");
-            programDriver.driver(argv);
-            System.exit(Constants.JOB_SUCCESS);
-        } catch (Throwable e) {
-            e.printStackTrace();
-            System.exit(Constants.JOB_FAIL);
+    @Override
+    protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
+        int sum = 0;
+        for (IntWritable count : values) {
+            sum += count.get();
         }
+
+        context.write(key, new IntWritable(sum));
     }
+
 }
+
+
+
+
+
+
+
+
+
 
