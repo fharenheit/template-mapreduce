@@ -284,4 +284,22 @@ public class MathUtils {
         }
         return value;
     }
+
+    /**
+     * 조합의 개수를 반환한다.
+     *
+     * @param n 아이템의 개수
+     * @param m 조합의 개수
+     * @return 조합의 개수
+     */
+    public static long combination(int n, int m) {
+        long result = 1;
+        for (int i = 0; i < m; i++) {
+            result *= n - i;
+        }
+        for (int i = 0; i < m; i++) {
+            result /= i + 1;
+        }
+        return result;
+    }
 }
