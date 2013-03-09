@@ -5,3 +5,10 @@ A = LOAD '/movielens_10m/ratings.dat' Using PigStorage(',') AS (user:chararray, 
 B = GROUP A BY movie;
 C = FOREACH B { D = ORDER A BY rating DESC; GENERATE Quantile(D); };
 DUMP C;
+
+--------------------------------------------------------------------------------------------------------------
+
+A = LOAD '/movielens_10m/ratings.dat' Using PigStorage(',') AS (user:chararray, movie:chararray, rating:int);
+B = GROUP A BY movie;
+C = FOREACH B { D = ORDER A BY rating DESC; GENERATE COUNT(D); };
+DUMP C;
