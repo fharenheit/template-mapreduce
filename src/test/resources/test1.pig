@@ -1,4 +1,4 @@
-REGISTER lib/datafu-0.0.8.jar;
+REGISTER lib/nomaven/datafu-0.0.8.jar;
 define Quantile datafu.pig.stats.Quantile('0.1','0.5','0.7','0.8');
 
 A = LOAD '/movielens_10m/ratings.dat' Using PigStorage(',') AS (user:chararray, movie:chararray, rating:int);
