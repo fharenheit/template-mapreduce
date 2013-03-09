@@ -68,17 +68,17 @@ import java.util.concurrent.atomic.AtomicInteger;
  * <p/>
  * 커맨드 라인은 모든 자식 MapReduce Driver에서 다음과 같이 사용할 수 있다.
  * <ul>
- * <li>--tempDir (path): Job 동작시 임시로 사용하는 임시 디렉토리. (기본값 "<tt>/temp/${user.home}</tt>")
- * <li>--help: 도움말</li>
+ *   <li>--tempDir (path): Job 동작시 임시로 사용하는 임시 디렉토리. (기본값 "<tt>/temp/${user.home}</tt>")
+ *   <li>--help: 도움말</li>
  * </ul>
  * <p/>
  * 추가적으로 MapReduce Job이 동작하기 위한 부가적인 파라미터는 다음과 같이 설정할 수 있다.
  * <p/>
  * <ul>
- * <li>-Dmapred.job.name=(name): Hadoop MapReduce Job의 이름. 기본으로 Driver 클래스명으로 설정.</li>
- * <li>-Dmapred.output.compress={true,false}: 출력 압축 여부 (기본값 true)</li>
- * <li>-Dmapred.input.dir=(path): 입력 파일 또는 입력 디렉토리 (필수)</li>
- * <li>-Dmapred.output.dir=(path): 출력 파일 (필수)</li>
+ *   <li>-Dmapred.job.name=(name): Hadoop MapReduce Job의 이름. 기본으로 Driver 클래스명으로 설정.</li>
+ *   <li>-Dmapred.output.compress={true,false}: 출력 압축 여부 (기본값 true)</li>
+ *   <li>-Dmapred.input.dir=(path): 입력 파일 또는 입력 디렉토리 (필수)</li>
+ *   <li>-Dmapred.output.dir=(path): 출력 파일 (필수)</li>
  * </ul>
  * <tt>-D</tt>로 시작하는 모든 파라미터는 반드시 그렇지 않은 다른 파라미터 보다 앞서 사용해야 한다.
  */

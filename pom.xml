@@ -31,6 +31,8 @@
         <commons.cli.version>1.2</commons.cli.version>
         <commons.cli2.version>2.0-mahout</commons.cli2.version>
         <commons.collection.version>3.2.1</commons.collection.version>
+        <commons.math3.version>3.1.1</commons.math3.version>
+        <datafu.version>0.0.8</datafu.version>
         <guava.version>r09</guava.version>
         <hadoop.mrunit.version>0.9.0-hadoop1</hadoop.mrunit.version>
         <mokito.version>1.8.5</mokito.version>
@@ -134,6 +136,16 @@
                                     <groupId>commons-lang</groupId>
                                     <artifactId>commons-lang</artifactId>
                                     <version>${commons.lang.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.apache.commons</groupId>
+                                    <artifactId>commons-math3</artifactId>
+                                    <version>${commons.math3.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>com.linkedin.datafu</groupId>
+                                    <artifactId>datafu</artifactId>
+                                    <version>${datafu.version}</version>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -540,6 +552,22 @@
                     <artifactId>junit</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+
+        <!-- ========= -->
+        <!--  Utility  -->
+        <!-- ========= -->
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-math3</artifactId>
+            <version>${commons.math3.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.linkedin.datafu</groupId>
+            <artifactId>datafu</artifactId>
+            <version>${datafu.version}</version>
         </dependency>
 
         <!-- ======== -->
