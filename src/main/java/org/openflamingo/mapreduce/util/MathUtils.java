@@ -34,6 +34,8 @@
  */
 package org.openflamingo.mapreduce.util;
 
+import org.apache.commons.math3.stat.descriptive.rank.Percentile;
+
 import java.math.BigDecimal;
 
 /**
@@ -301,5 +303,17 @@ public class MathUtils {
             result /= i + 1;
         }
         return result;
+    }
+
+    /**
+     * Percentile을 계산한다.
+     *
+     * @param values   값의 모곡
+     * @param quantile 구하고자 하는 Quantile
+     * @return Percentile
+     */
+    public static double percentile(double[] values, double quantile) {
+        Percentile percentile = new Percentile();
+        return percentile.evaluate(values, quantile);
     }
 }
