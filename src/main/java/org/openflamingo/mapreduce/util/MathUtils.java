@@ -34,9 +34,12 @@
  */
 package org.openflamingo.mapreduce.util;
 
+import com.google.common.base.Joiner;
 import org.apache.commons.math3.stat.descriptive.rank.Percentile;
 
 import java.math.BigDecimal;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Mathmatics Utility.
@@ -315,5 +318,33 @@ public class MathUtils {
     public static double percentile(double[] values, double quantile) {
         Percentile percentile = new Percentile();
         return percentile.evaluate(values, quantile);
+    }
+
+    /**
+     * Percentile을 계산한다.
+     *
+     * @param values    값의 모곡
+     * @param quantiles 구하고자 하는 Quantile
+     * @return Percentile
+     */
+    public static List<Double> percentile(double[] values, double quantiles[]) {
+        List<Double> percentiles = new LinkedList<Double>();
+        for (double quantile : quantiles) {
+            percentiles.add(percentile(values, quantile));
+        }
+        return percentiles;
+    }
+
+    /**
+     * Percentile을 계산한다.
+     *
+     * @param values    값의 모곡
+     * @param quantiles 구하고자 하는 Quantile
+     * @param joinChar  문자열로 구성하기 위해 quantile을 결합할 문자열
+     * @return Percentile
+     */
+    public static String percentile(double[] values, double quantiles[], String joinChar) {
+        List<Double> percentiles = percentile(values, quantiles);
+        return Joiner.on(joinChar).join(percentiles);
     }
 }

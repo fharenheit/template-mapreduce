@@ -17,6 +17,7 @@
  */
 package org.openflamingo.mapreduce.util;
 
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -27,11 +28,20 @@ import org.junit.Test;
  */
 public class MathUtilsTest {
 
+    double[] quantiles = new double[100];
+
+    double[] values = {12, 34, 2, 4, 5, 6, 2, 34, 5, 234, 23, 234, 234, 234, 23, 26, 68, 75, 64, 53, 2123, 74, 56, 35, 345, 352, 4, 234};
+
+    @Before
+    public void before() {
+        for (int i = 0; i < 100; i++) {
+            quantiles[i] = i + 1;
+        }
+    }
+
     @Test
     public void percentile() throws Exception {
-        for (int i = 1; i <= 100; i++) {
-            MathUtils.percentile(i);
-        }
+        System.out.println(MathUtils.percentile(values, quantiles, ","));
     }
 
 }
