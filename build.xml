@@ -1,198 +1,205 @@
 <?xml version="1.0"  encoding="UTF-8"?>
 <project name="mapreduce-template" default="javadoc" basedir=".">
 
-    <!-- Change maven repository directory -->
-    <property name="maven.repository" value="${user.home}/.m2/repository"/>
+	<!-- Change maven repository directory -->
+	<property name="maven.repository" value="${user.home}/.m2/repository"/>
 
-    <property name="ydoc.home" value="${basedir}/etc/yworks-uml-doclet-3.0_02-jdk1.5"/>
-    <property name="DFH" value="${basedir}/etc/docflex-doclet-1.6.1"/>
+	<property name="ydoc.home" value="${basedir}/etc/yworks-uml-doclet-3.0_02-jdk1.5"/>
+	<property name="DFH" value="${basedir}/etc/docflex-doclet-1.6.1"/>
 
-    <property name="encoding" value="UTF-8"/>
+	<property name="encoding" value="UTF-8"/>
 
-    <property name="javadoc.title" value="MapReduce API Reference"/>
+	<property name="javadoc.title" value="MapReduce API Reference"/>
 
-    <condition property="javadoc.version" value="1.6">
-        <not>
-            <isset property="javadoc.version"/>
-        </not>
-    </condition>
+	<condition property="javadoc.version" value="1.6">
+		<not>
+			<isset property="javadoc.version"/>
+		</not>
+	</condition>
 
-    <path id="libpath">
-        <!--
-            외부 JAR 라이브러리가 추가되는 경우 컴파일 의존성이 있다면 여기에 추가하도록 한다.
-        -->
-        <fileset dir="${maven.repository}">
-            <include name="org/apache/hadoop/hadoop-core/1.1.1/hadoop-core-1.1.1.jar"/>
-            <include name="commons-cli/commons-cli/1.2/commons-cli-1.2.jar"/>
-            <include name="commons-lang/commons-lang/2.6/commons-lang-2.6.jar"/>
-            <include name="org/apache/mahout/mahout-core/0.7/mahout-core-0.7.jar"/>
-            <include name="org/apache/mahout/commons/commons-cli/2.0-mahout/commons-cli-2.0-mahout.jar"/>
-            <include name="com/google/guava/guava/r09/guava-r09.jar"/>
-            <include name="commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar"/>
-            <include name="commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"/>
-            <include name="commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar"/>
-            <include name="log4j/log4j/1.2.16/log4j-1.2.16.jar"/>
-            <include name="org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar"/>
-        </fileset>
-        <fileset dir="${basedir}/target/classes">
-            <include name="**/*.class"/>
-        </fileset>
-    </path>
+	<path id="libpath">
+		<!--
+			외부 JAR 라이브러리가 추가되는 경우 컴파일 의존성이 있다면 여기에 추가하도록 한다.
+		-->
+		<fileset dir="${maven.repository}">
+			<include name="org/apache/hadoop/hadoop-core/1.1.1/hadoop-core-1.1.1.jar"/>
+			<include name="commons-cli/commons-cli/1.2/commons-cli-1.2.jar"/>
+			<include name="commons-lang/commons-lang/2.5/commons-lang-2.5.jar"/>
+			<include name="org/apache/commons/commons-math3/3.1.1/commons-math3-3.1.1.jar"/>
+			<include name="org/apache/mahout/mahout-core/0.7/mahout-core-0.7.jar"/>
+			<include name="org/apache/mahout/commons/commons-cli/2.0-mahout/commons-cli-2.0-mahout.jar"/>
+			<include name="com/google/guava/guava/r09/guava-r09.jar"/>
+			<include name="commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar"/>
+			<include name="commons-logging/commons-logging/1.1.1/commons-logging-1.1.1.jar"/>
+			<include name="commons-logging/commons-logging-api/1.1/commons-logging-api-1.1.jar"/>
+			<include name="log4j/log4j/1.2.16/log4j-1.2.16.jar"/>
+			<include name="org/slf4j/slf4j-api/1.6.4/slf4j-api-1.6.4.jar"/>
+			<include name="org/apache/hive/hive-shims/0.9.0/hive-shims-0.9.0.jar"/>
+			<include name="org/apache/hive/hive-serde/0.9.0/hive-serde-0.9.0.jar"/>
+			<include name="org/apache/hive/hive-exec/0.9.0/hive-exec-0.9.0.jar"/>
+			<include name="org/apache/hive/hive-commons/0.9.0/hive-shims-0.9.0.jar"/>
+			<include name="org/apache/hive/hive-builtins/0.9.0/hive-builtins-0.9.0.jar"/>
+		</fileset>
+		<fileset dir="${basedir}/target/classes">
+			<include name="**/*.class"/>
+		</fileset>
+	</path>
 
-    <!-- JavaDoc을 MS Word에서 읽기가 가능한 RTF로 생성하는 Ant Target -->
-    <target name="javadoc-rtf">
-        <javadoc maxmemory="512m"
-                 encoding="${encoding}"
-                 locale="ko_KR"
-                 classpathref="libpath"
-                 sourcepath="${basedir}/src/main/java"
-                 destdir="${basedir}/target">
+	<!-- JavaDoc을 MS Word에서 읽기가 가능한 RTF로 생성하는 Ant Target -->
+	<target name="javadoc-rtf">
+		<javadoc maxmemory="512m"
+		         encoding="${encoding}"
+		         locale="ko_KR"
+		         useexternalfile="true"
+		         classpathref="libpath"
+		         sourcepath="${basedir}/src/main/java"
+		         destdir="${basedir}/target">
 
-            <doclet name="com.docflex.javadoc.Doclet" path="${DFH}/lib/docflex-doclet.jar">
-                <param name="-template" value="${DFH}/templates/javadoc/PlainDoc.tpl"/>
-                <param name="-p:windowTitle" value="${javadoc.title}"/>
-                <param name="-p:docTitle" value="${javadoc.title}"/>
-                <param name="-format" value="RTF"/>
-                <param name="-nodialog"/>
-                <param name="-launchviewer=false"/>
-            </doclet>
+			<doclet name="com.docflex.javadoc.Doclet" path="${DFH}/lib/docflex-doclet.jar">
+				<param name="-template" value="${DFH}/templates/javadoc/PlainDoc.tpl"/>
+				<param name="-p:windowTitle" value="VDIS MapReduce API"/>
+				<param name="-p:docTitle" value="VDIS MapReduce API"/>
+				<param name="-format" value="RTF"/>
+				<param name="-nodialog"/>
+				<param name="-launchviewer=false"/>
+			</doclet>
 
-            <package name="org.openflamingo.mapreduce.*"/>
+			<package name="org.openflamingo.mapreduce.*"/>
 
-            <!-- TODO 여기에 JavaDoc을 생성할 패키지를 입력하십시오. -->
-            <package name="com.yourcompany.hadoop.mapreduce.*"/>
-        </javadoc>
-        <move file="${basedir}/target/PlainDoc.rtf" tofile="${basedir}/target/javadoc.rtf"/>
-    </target>
+			<!-- TODO 여기에 JavaDoc을 생성할 패키지를 입력하십시오. -->
+			<package name="com.yourcompany.hadoop.mapreduce.*"/>
+		</javadoc>
+		<move file="${basedir}/target/PlainDoc.rtf" tofile="${basedir}/target/javadoc.doc"/>
+	</target>
 
-    <!-- JavaDoc을 JDK 1.6 JavaDoc 도구로 HTML 형식의 JavaDoc API 생성하는 Ant Target -->
-    <target name="javadoc-1.6-html">
-        <property name="ps" value="${path.separator}"/>
+	<!-- JavaDoc을 JDK 1.6 JavaDoc 도구로 HTML 형식의 JavaDoc API 생성하는 Ant Target -->
+	<target name="javadoc-1.6-html">
+		<property name="ps" value="${path.separator}"/>
 
-        <delete dir="${basedir}/target/javadoc"/>
+		<delete dir="${basedir}/target/javadoc"/>
 
-        <javadoc
-                source="${javadoc.version}"
-                classpathref="libpath"
-                sourcepath="${basedir}/src/main/java"
-                Overview="${basedir}/src/javadoc/1.6/overview.html"
-                stylesheetfile="${basedir}/src/javadoc/1.6/stylesheet.css"
-                destdir="${basedir}/target/javadoc"
-                Encoding="${encoding}"
-                Locale="ko_KR"
-                useexternalfile="true"
-                docencoding="${encoding}"
-                charset="${encoding}"
-                Author="true"
-                docfilessubdirs="true"
-                Version="true"
-                Use="true"
-                failonerror="false"
-                additionalparam="-breakiterator"
-                Windowtitle="${javadoc.title}"
-                Doctitle="${javadoc.title}">
+		<javadoc
+			source="${javadoc.version}"
+			classpathref="libpath"
+			sourcepath="${basedir}/src/main/java"
+			overview="${basedir}/src/main/1.6/overview.html"
+			stylesheetfile="${basedir}/src/javadoc/1.6/stylesheet.css"
+			destdir="${basedir}/target/javadoc"
+			encoding="${encoding}"
+			locale="ko_KR"
+			useexternalfile="true"
+			docencoding="${encoding}"
+			charset="${encoding}"
+			author="true"
+			docfilessubdirs="true"
+			version="true"
+			use="true"
+			failonerror="false"
+			additionalparam="-breakiterator"
+			windowtitle="${javadoc.title}"
+			doctitle="${javadoc.title}">
 
-            <link href="http://docs.oracle.com/javase/6/docs/api"/>
-            <link href="http://commons.apache.org/lang/api-2.6"/>
-            <link href="http://commons.apache.org/cli/api-release"/>
-            <link href="http://commons.apache.org/sandbox/cli2/apidocs"/>
-            <link href="http://www.slf4j.org/apidocs"/>
-            <link href="http://commons.apache.org/logging/commons-logging-1.1.1/apidocs"/>
-            <link href="http://logging.apache.org/log4j/1.2/apidocs"/>
-            <link href="http://commons.apache.org/io/apidocs"/>
-            <link href="http://junit.sourceforge.net/javadoc"/>
-            <link href="http://hadoop.apache.org/docs/r1.0.3/api"/>
-            <link href="http://pig.apache.org/docs/r0.10.0/api"/>
+			<link href="http://docs.oracle.com/javase/6/docs/api"/>
+			<link href="http://commons.apache.org/lang/api-2.6"/>
+			<link href="http://commons.apache.org/cli/api-release"/>
+			<link href="http://commons.apache.org/sandbox/cli2/apidocs"/>
+			<link href="http://www.slf4j.org/apidocs"/>
+			<link href="http://commons.apache.org/logging/commons-logging-1.1.1/apidocs"/>
+			<link href="http://logging.apache.org/log4j/1.2/apidocs"/>
+			<link href="http://commons.apache.org/io/apidocs"/>
+			<link href="http://junit.sourceforge.net/javadoc"/>
+			<link href="http://hadoop.apache.org/docs/r1.0.3/api"/>
+			<link href="http://pig.apache.org/docs/r0.10.0/api"/>
 
-            <doctitle>${javadoc.title}</doctitle>
-            <bottom><![CDATA[<i>Copyright &#169; 2011 Flamingo Community</i>]]></bottom>
-            <doclet
-                    name="ydoc.doclets.YStandard"
-                    path="${ydoc.home}/lib/ydoc.jar${ps}${ydoc.home}/resources${ps}${ydoc.home}/doc">
-                <param name="-author"/>
-                <param name="-generic"/>
-                <param name="-umlautogen"/>
-                <param name="-filterpath" value="${ydoc.home}/lib/ydoc.jar"/>
-                <param name="-filter" value="ydoc.filters.ExcludeFilter"/>
-                <param name="-tag" value="y.precondition"/>
-                <param name="-tag" value="y.postcondition"/>
-                <param name="-tag" value="y.complexity"/>
-                <param name="-tag" value="param"/>
-                <param name="-tag" value="return"/>
-                <param name="-tag" value="see"/>
-                <param name="-tag" value="y.uml"/>
-            </doclet>
-        </javadoc>
+			<doctitle>${javadoc.title}</doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2011 Flamingo Community</i>]]></bottom>
+			<doclet
+				name="ydoc.doclets.YStandard"
+				path="${ydoc.home}/lib/ydoc.jar${ps}${ydoc.home}/resources${ps}${ydoc.home}/doc">
+				<param name="-author"/>
+				<param name="-generic"/>
+				<param name="-umlautogen"/>
+				<param name="-filterpath" value="${ydoc.home}/lib/ydoc.jar"/>
+				<param name="-filter" value="ydoc.filters.ExcludeFilter"/>
+				<param name="-tag" value="y.precondition"/>
+				<param name="-tag" value="y.postcondition"/>
+				<param name="-tag" value="y.complexity"/>
+				<param name="-tag" value="param"/>
+				<param name="-tag" value="return"/>
+				<param name="-tag" value="see"/>
+				<param name="-tag" value="y.uml"/>
+			</doclet>
+		</javadoc>
 
-        <copy todir="${basedir}/target/javadoc/resources">
-            <fileset dir="${basedir}/src/javadoc/1.6/resources" includes="**/*"/>
-        </copy>
-    </target>
+		<copy todir="${basedir}/target/javadoc/resources">
+			<fileset dir="${basedir}/src/javadoc/1.6/resources" includes="**/*"/>
+		</copy>
+	</target>
 
-    <!-- JavaDoc을 JDK 1.7 JavaDoc 도구로 HTML 형식의 JavaDoc API 생성하는 Ant Target -->
-    <target name="javadoc-1.7-html">
-        <property name="ps" value="${path.separator}"/>
+	<!-- JavaDoc을 JDK 1.7 JavaDoc 도구로 HTML 형식의 JavaDoc API 생성하는 Ant Target -->
+	<target name="javadoc-1.7-html">
+		<property name="ps" value="${path.separator}"/>
 
-        <delete dir="${basedir}/target/javadoc"/>
-        <javadoc
-                source="${javadoc.version}"
-                classpathref="libpath"
-                sourcepath="${basedir}/src/main/java"
-                Overview="${basedir}/src/javadoc/1.7/overview.html"
-                stylesheetfile="${basedir}/src/javadoc/1.7/stylesheet.css"
-                destdir="${basedir}/target/javadoc"
-                Encoding="${encoding}"
-                Locale="ko_KR"
-                useexternalfile="true"
-                docencoding="${encoding}"
-                charset="${encoding}"
-                Author="true"
-                docfilessubdirs="true"
-                Version="true"
-                Use="true"
-                failonerror="false"
-                additionalparam="-breakiterator"
-                Windowtitle="${javadoc.title}"
-                Doctitle="${javadoc.title}">
+		<delete dir="${basedir}/target/javadoc"/>
+		<javadoc
+			source="${javadoc.version}"
+			classpathref="libpath"
+			sourcepath="${basedir}/src/main/java"
+			overview="${basedir}/src/javadoc/1.7/overview.html"
+			stylesheetfile="${basedir}/src/javadoc/1.7/stylesheet.css"
+			destdir="${basedir}/target/javadoc"
+			encoding="${encoding}"
+			locale="ko_KR"
+			useexternalfile="true"
+			docencoding="${encoding}"
+			charset="${encoding}"
+			author="true"
+			docfilessubdirs="true"
+			version="true"
+			use="true"
+			failonerror="false"
+			additionalparam="-breakiterator"
+			windowtitle="${javadoc.title}"
+			doctitle="${javadoc.title}">
 
-            <link href="http://docs.oracle.com/javase/6/docs/api"/>
-            <link href="http://commons.apache.org/lang/api-2.6"/>
-            <link href="http://commons.apache.org/cli/api-release"/>
-            <link href="http://commons.apache.org/sandbox/cli2/apidocs"/>
-            <link href="http://www.slf4j.org/apidocs"/>
-            <link href="http://commons.apache.org/logging/commons-logging-1.1.1/apidocs"/>
-            <link href="http://logging.apache.org/log4j/1.2/apidocs"/>
-            <link href="http://commons.apache.org/io/apidocs"/>
-            <link href="http://junit.sourceforge.net/javadoc"/>
-            <link href="http://hadoop.apache.org/docs/r1.0.3/api"/>
-            <link href="http://pig.apache.org/docs/r0.10.0/api"/>
+			<link href="http://docs.oracle.com/javase/6/docs/api"/>
+			<link href="http://commons.apache.org/lang/api-2.6"/>
+			<link href="http://commons.apache.org/cli/api-release"/>
+			<link href="http://commons.apache.org/sandbox/cli2/apidocs"/>
+			<link href="http://www.slf4j.org/apidocs"/>
+			<link href="http://commons.apache.org/logging/commons-logging-1.1.1/apidocs"/>
+			<link href="http://logging.apache.org/log4j/1.2/apidocs"/>
+			<link href="http://commons.apache.org/io/apidocs"/>
+			<link href="http://junit.sourceforge.net/javadoc"/>
+			<link href="http://hadoop.apache.org/docs/r1.0.3/api"/>
+			<link href="http://pig.apache.org/docs/r0.10.0/api"/>
 
-            <doctitle>${javadoc.title}</doctitle>
-            <bottom><![CDATA[<i>Copyright &#169; 2011 Flamingo Community</i>]]></bottom>
-            <doclet
-                    name="ydoc.doclets.YStandard"
-                    path="${ydoc.home}/lib/ydoc.jar${ps}${ydoc.home}/resources${ps}${ydoc.home}/doc">
-                <param name="-author"/>
-                <param name="-generic"/>
-                <param name="-umlautogen"/>
-                <param name="-filterpath" value="${ydoc.home}/lib/ydoc.jar"/>
-                <param name="-filter" value="ydoc.filters.ExcludeFilter"/>
-                <param name="-tag" value="y.precondition"/>
-                <param name="-tag" value="y.postcondition"/>
-                <param name="-tag" value="y.complexity"/>
-                <param name="-tag" value="param"/>
-                <param name="-tag" value="return"/>
-                <param name="-tag" value="see"/>
-                <param name="-tag" value="y.uml"/>
-            </doclet>
-        </javadoc>
-    </target>
+			<doctitle>${javadoc.title}</doctitle>
+			<bottom><![CDATA[<i>Copyright &#169; 2011 Flamingo Community</i>]]></bottom>
+			<doclet
+				name="ydoc.doclets.YStandard"
+				path="${ydoc.home}/lib/ydoc.jar${ps}${ydoc.home}/resources${ps}${ydoc.home}/doc">
+				<param name="-author"/>
+				<param name="-generic"/>
+				<param name="-umlautogen"/>
+				<param name="-filterpath" value="${ydoc.home}/lib/ydoc.jar"/>
+				<param name="-filter" value="ydoc.filters.ExcludeFilter"/>
+				<param name="-tag" value="y.precondition"/>
+				<param name="-tag" value="y.postcondition"/>
+				<param name="-tag" value="y.complexity"/>
+				<param name="-tag" value="param"/>
+				<param name="-tag" value="return"/>
+				<param name="-tag" value="see"/>
+				<param name="-tag" value="y.uml"/>
+			</doclet>
+		</javadoc>
+	</target>
 
-    <target name="javadoc-zip">
-        <zip destfile="${basedir}/target/javadoc.zip"
-             basedir="${basedir}/target/javadoc"/>
-    </target>
+	<target name="javadoc-zip">
+		<zip destfile="${basedir}/target/javadoc.zip"
+		     basedir="${basedir}/target/javadoc"/>
+	</target>
 
-    <target name="javadoc" depends="javadoc-1.6-html,javadoc-zip,javadoc-rtf"/>
-    <target name="javadoc-1.7" depends="javadoc-1.7-html,javadoc-zip,javadoc-rtf"/>
+	<target name="javadoc" depends="javadoc-1.6-html,javadoc-zip,javadoc-rtf"/>
+	<target name="javadoc-1.7" depends="javadoc-1.7-html,javadoc-zip,javadoc-rtf"/>
 </project>
