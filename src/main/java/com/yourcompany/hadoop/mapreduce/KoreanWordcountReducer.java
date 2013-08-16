@@ -38,7 +38,7 @@ public class KoreanWordcountReducer extends Reducer<Text, IntWritable, Text, Int
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
-        context.getConfiguration().getInt("maxSupport", 10);
+        this.maxSupport = context.getConfiguration().getInt("maxSupport", 10);
     }
 
     @Override
