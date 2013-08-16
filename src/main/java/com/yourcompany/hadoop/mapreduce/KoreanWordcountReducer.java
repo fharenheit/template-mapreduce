@@ -32,13 +32,19 @@ import java.io.IOException;
 public class KoreanWordcountReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 
     /**
-     *
+     * 파일에 기록하기 위해서 각 단어별 최대 지지도. 이 지지도 보다 낮은 지지도를 갖는 단어는
+     * 최종 결과 파일에 기록하지 않는다. 기본값은 10이다.
      */
     private int maxSupport = 0;
 
+    /**
+     * 기본으로 적용할 최대 지지도.
+     */
+    private final static int DEFAULT_MAX_SUPPORT = 10;
+
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
-        this.maxSupport = context.getConfiguration().getInt("maxSupport", 10);
+        this.maxSupport = context.getConfiguration().getInt("maxSupport", DEFAULT_MAX_SUPPORT);
     }
 
     @Override
