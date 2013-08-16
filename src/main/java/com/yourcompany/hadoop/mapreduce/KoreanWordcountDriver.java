@@ -28,14 +28,16 @@ import org.apache.hadoop.util.ToolRunner;
 import java.io.IOException;
 
 /**
- * Hadoop MapReduce Sample Driver.
+ * 한글 형태소 분석기 기반 Wordcount MapReduce Job Driver.
  * <p/>
  * <pre>
- *     #hadoop jar JAR_FILE CLASS -libjars LIB_JAR COMMAND_OPTS
+ *     #hadoop jar JAR_FILE wordcount -input IN -output OUT -maxSupport 0 -reducer 2 -exactMatch true
+ *     -bigrammable false -hasOrigin false -originCNoun false
  * </pre>
  *
  * @author Edward KIM
  * @version 0.1
+ * @see <a href="http://cafe.naver.com/korlucene.cafe?iframe_url=/MyCafeIntro.nhn%3Fclubid=17291730">Lucene 한글 형태소 분석기</a>
  */
 public class KoreanWordcountDriver extends org.apache.hadoop.conf.Configured implements org.apache.hadoop.util.Tool {
 
