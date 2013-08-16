@@ -53,7 +53,7 @@ public class WritableUtils {
      */
     public static byte[] writeToByteArray(Writable writableObject) {
         ByteArrayOutputStream outputStream =
-            new ByteArrayOutputStream();
+                new ByteArrayOutputStream();
         DataOutput output = new DataOutputStream(outputStream);
         try {
             writableObject.write(output);
@@ -70,7 +70,7 @@ public class WritableUtils {
      * @return Byte array with serialized objects.
      */
     public static byte[] writeListToByteArray(
-        List<? extends Writable> writableList) {
+            List<? extends Writable> writableList) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         DataOutput output = new DataOutputStream(outputStream);
         try {
@@ -80,7 +80,7 @@ public class WritableUtils {
             }
         } catch (IOException e) {
             throw new IllegalStateException(
-                "writeListToByteArray: IOException", e);
+                    "writeListToByteArray: IOException", e);
         }
         return outputStream.toByteArray();
     }
@@ -94,24 +94,24 @@ public class WritableUtils {
      * @return List of writable objects.
      */
     public static List<? extends Writable> readListFieldsFromByteArray(
-        byte[] byteArray,
-        Class<? extends Writable> writableClass,
-        Configuration conf) {
+            byte[] byteArray,
+            Class<? extends Writable> writableClass,
+            Configuration conf) {
         try {
             DataInputStream inputStream =
-                new DataInputStream(new ByteArrayInputStream(byteArray));
+                    new DataInputStream(new ByteArrayInputStream(byteArray));
             int size = inputStream.readInt();
             List<Writable> writableList = new ArrayList<Writable>(size);
             for (int i = 0; i < size; ++i) {
                 Writable writable =
-                    ReflectionUtils.newInstance(writableClass, conf);
+                        ReflectionUtils.newInstance(writableClass, conf);
                 writable.readFields(inputStream);
                 writableList.add(writable);
             }
             return writableList;
         } catch (IOException e) {
             throw new IllegalStateException(
-                "readListFieldsFromZnode: IOException", e);
+                    "readListFieldsFromZnode: IOException", e);
         }
     }
 }

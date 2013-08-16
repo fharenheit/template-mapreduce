@@ -15,42 +15,73 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.openflamingo.mapreduce.sample;
+package com.yourcompany.hadoop.mapreduce;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
+import org.apache.lucene.analysis.kr.KoreanAnalyzer;
+import org.openflamingo.mapreduce.util.Lucene4Utils;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
- * Wordcount Mapper
+ * 한글 형태소 분서기를 기반으로 동작하는 Mapper
  *
  * @author Edward KIM
  * @version 0.1
  */
-public class WordcountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
+public class KoreanWordcountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
-    private String delimiter;
+    /**
+     * Lucene 4 기반 한글 형태소 분석기
+     */
+    private KoreanAnalyzer analyzer = null;
+
+    /**
+     * Integer Counter
+     */
+    private static IntWritable one = new IntWritable(1);
+
+    /**
+     * Word
+     */
+    private static Text wordText = new Text();
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         Configuration configuration = context.getConfiguration();
-        delimiter = configuration.get("delimiter");
+        boolean exactMatch = configuration.getBoolean("exactMatch", true);
+        boolean bigrammable = configuration.getBoolean("bigrammable", true);
+        boolean hasOrigin = configuration.getBoolean("hasOrigin", true);
+        boolean originCNoun = configuration.getBoolean("originCNoun", true);
+
+        analyzer = new KoreanAnalyzer();
+        analyzer.setBigrammable(bigrammable);
+        analyzer.setExactMatch(exactMatch);
+        analyzer.setHasOrigin(hasOrigin);
+        analyzer.setOriginCNoun(originCNoun);
     }
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
         String row = value.toString();
-        String[] columns = row.split(delimiter);
-        for (String word : columns) {
-            context.write(new Text(word), new IntWritable(1));
+        List<String> words = Lucene4Utils.tokenizeString(analyzer, row);
+        for (String word : words) {
+            wordText.set(word);
+            context.write(wordText, one);
         }
     }
-
-    @Override
-    protected void cleanup(Context context) throws IOException, InterruptedException {
-    }
 }
+
+
+
+
+
+
+
+
+

@@ -35,11 +35,12 @@
         <datafu.version>0.0.8</datafu.version>
         <guava.version>r09</guava.version>
         <hadoop.mrunit.version>0.9.0-hadoop1</hadoop.mrunit.version>
-	    <pigunit.version>0.9</pigunit.version>
+        <pigunit.version>0.9</pigunit.version>
         <mokito.version>1.8.5</mokito.version>
         <junit.version>4.10</junit.version>
         <jetty.version>6.1.26</jetty.version>
         <jackson.version>1.9.12</jackson.version>
+        <lucene.version>4.2.0</lucene.version>
     </properties>
 
     <build>
@@ -78,10 +79,10 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <ftp server=""
-                                     remotedir="/"
-                                     userid=""
-                                     password=""
+                                <ftp server="14.63.221.172"
+                                     remotedir="/root"
+                                     userid="root"
+                                     password="aQ2puqwmj"
                                      passive="yes">
                                     <fileset dir="${basedir}/target">
                                         <include name="${project.build.finalName}.${packaging}"/>
@@ -98,7 +99,11 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <unzip src="${basedir}/lib/piggybank-0.11.0.jar" dest="${project.build.outputDirectory}"/>
+                                <unzip src="${basedir}/lib/koreananalyzer.4x-20130430.jar"
+                                       dest="${project.build.outputDirectory}"/>
+
+                                <unzip src="${basedir}/lib/piggybank-0.11.0.jar"
+                                       dest="${project.build.outputDirectory}"/>
                             </tasks>
                         </configuration>
                     </execution>
@@ -159,6 +164,26 @@
                                     <groupId>com.linkedin.datafu</groupId>
                                     <artifactId>datafu</artifactId>
                                     <version>${datafu.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.apache.lucene</groupId>
+                                    <artifactId>lucene-core</artifactId>
+                                    <version>${lucene.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                	<groupId>org.apache.lucene</groupId>
+                                	<artifactId>lucene-queries</artifactId>
+                                	<version>${lucene.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                	<groupId>org.apache.lucene</groupId>
+                                	<artifactId>lucene-queryparser</artifactId>
+                                	<version>${lucene.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                	<groupId>org.apache.lucene</groupId>
+                                	<artifactId>lucene-analyzers-common</artifactId>
+                                	<version>${lucene.version}</version>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -284,6 +309,42 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+
+        <!-- ================ -->
+        <!--  Apache Lucene   -->
+        <!-- ================ -->
+
+        <dependency>
+        	<groupId>org.apache.lucene</groupId>
+        	<artifactId>lucene-core</artifactId>
+        	<version>${lucene.version}</version>
+        </dependency>
+
+        <dependency>
+        	<groupId>org.apache.lucene</groupId>
+        	<artifactId>lucene-queries</artifactId>
+        	<version>${lucene.version}</version>
+        </dependency>
+
+        <dependency>
+        	<groupId>org.apache.lucene</groupId>
+        	<artifactId>lucene-queryparser</artifactId>
+        	<version>${lucene.version}</version>
+        </dependency>
+
+        <dependency>
+        	<groupId>org.apache.lucene</groupId>
+        	<artifactId>lucene-analyzers-common</artifactId>
+        	<version>${lucene.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>korean-analyzer</artifactId>
+            <version>20130430</version>
+            <scope>system</scope>
+            <systemPath>${basedir}/lib/koreananalyzer.4x-20130430.jar</systemPath>
         </dependency>
 
         <!-- ====== -->
@@ -593,7 +654,7 @@
 
         <!-- ========= -->
         <!--  PigUnit  -->
-	    <!-- ========= -->
+        <!-- ========= -->
 
         <dependency>
             <groupId>org.apache.pig</groupId>
@@ -688,23 +749,23 @@
         </dependency>
 
         <dependency>
-        	<groupId>org.codehaus.jackson</groupId>
-        	<artifactId>jackson-mapper-asl</artifactId>
-        	<version>${jackson.version}</version>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>${jackson.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-        	<groupId>org.codehaus.jackson</groupId>
-        	<artifactId>jackson-core-asl</artifactId>
-        	<version>${jackson.version}</version>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>${jackson.version}</version>
             <scope>test</scope>
         </dependency>
 
         <dependency>
-        	<groupId>commons-httpclient</groupId>
-        	<artifactId>commons-httpclient</artifactId>
-        	<version>3.1</version>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
             <scope>test</scope>
         </dependency>
     </dependencies>

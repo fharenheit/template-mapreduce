@@ -15,23 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.openflamingo.mapreduce.util;
 
 import java.lang.reflect.*;
@@ -66,7 +49,7 @@ public class ReflectionUtils {
             return getClass(((ParameterizedType) type).getRawType());
         } else if (type instanceof GenericArrayType) {
             Type componentType =
-                ((GenericArrayType) type).getGenericComponentType();
+                    ((GenericArrayType) type).getGenericComponentType();
             Class<?> componentClass = getClass(componentType);
             if (componentClass != null) {
                 return Array.newInstance(componentClass, 0).getClass();
@@ -88,7 +71,7 @@ public class ReflectionUtils {
      * @return a list of the raw classes for the actual type arguments.
      */
     public static <T> List<Class<?>> getTypeArguments(
-        Class<T> baseClass, Class<? extends T> childClass) {
+            Class<T> baseClass, Class<? extends T> childClass) {
         Map<Type, Type> resolvedTypes = new HashMap<Type, Type>();
         Type type = childClass;
         // start walking up the inheritance hierarchy until we hit baseClass
@@ -102,11 +85,11 @@ public class ReflectionUtils {
                 Class<?> rawType = (Class<?>) parameterizedType.getRawType();
 
                 Type[] actualTypeArguments =
-                    parameterizedType.getActualTypeArguments();
+                        parameterizedType.getActualTypeArguments();
                 TypeVariable<?>[] typeParameters = rawType.getTypeParameters();
                 for (int i = 0; i < actualTypeArguments.length; i++) {
                     resolvedTypes.put(typeParameters[i],
-                        actualTypeArguments[i]);
+                            actualTypeArguments[i]);
                 }
 
                 if (!rawType.equals(baseClass)) {
@@ -123,7 +106,7 @@ public class ReflectionUtils {
             actualTypeArguments = ((Class<?>) type).getTypeParameters();
         } else {
             actualTypeArguments =
-                ((ParameterizedType) type).getActualTypeArguments();
+                    ((ParameterizedType) type).getActualTypeArguments();
         }
         List<Class<?>> typeArgumentsAsClasses = new ArrayList<Class<?>>();
         // resolve types by chasing down type variables.
@@ -144,7 +127,7 @@ public class ReflectionUtils {
      * @param value     Value to set on target.
      */
     public static void setField(Object target, String fieldname, Object value)
-        throws NoSuchFieldException, IllegalAccessException {
+            throws NoSuchFieldException, IllegalAccessException {
         Field field = findDeclaredField(target.getClass(), fieldname);
         field.setAccessible(true);
         field.set(target, value);
@@ -159,7 +142,7 @@ public class ReflectionUtils {
      * @throws NoSuchFieldException When field not found.
      */
     private static Field findDeclaredField(Class<?> inClass, String fieldname)
-        throws NoSuchFieldException {
+            throws NoSuchFieldException {
         while (!Object.class.equals(inClass)) {
             for (Field field : inClass.getDeclaredFields()) {
                 if (field.getName().equalsIgnoreCase(fieldname)) {

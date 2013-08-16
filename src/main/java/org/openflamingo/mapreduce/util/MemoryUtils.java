@@ -29,11 +29,11 @@ public class MemoryUtils {
      */
     public static String getRuntimeMemoryStats() {
         return "totalMem = " +
-            (Runtime.getRuntime().totalMemory() / 1024f / 1024f) +
-            "M, maxMem = " +
-            (Runtime.getRuntime().maxMemory() / 1024f / 1024f) +
-            "M, freeMem = " +
-            (Runtime.getRuntime().freeMemory() / 1024f / 1024f) + "M";
+                (Runtime.getRuntime().totalMemory() / 1024f / 1024f) +
+                "M, maxMem = " +
+                (Runtime.getRuntime().maxMemory() / 1024f / 1024f) +
+                "M, freeMem = " +
+                (Runtime.getRuntime().freeMemory() / 1024f / 1024f) + "M";
     }
 
 }

@@ -15,23 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.openflamingo.mapreduce.util;
 
 import org.apache.hadoop.conf.Configuration;
@@ -309,75 +292,75 @@ public class HdfsUtils {
     }
 
 
-	/**
-	 * HDFS 상에서 지정한 파일을 다른 디렉토리로 파일을 이동시킨다.
-	 *
-	 * @param conf            Hadoop Configuration
-	 * @param path            이동할 파일
-	 * @param prefixToAppend  파일을 이동할 때 파일명의 prefix에 추가할 문자열
-	 * @param targetDirectory 목적 디렉토리
-	 * @throws java.io.IOException 파일을 이동할 수 없는 경우
-	 */
-	public static void moveFileToDirectory(Configuration conf, String path, String prefixToAppend, String targetDirectory) throws IOException {
-		FileSystem fileSystem = FileSystem.get(conf);
-		FileStatus[] statuses = fileSystem.listStatus(new Path(path));
-		for (FileStatus fileStatus : statuses) {
-			String filename = prefixToAppend + "_" + fileStatus.getPath().getName();
-			if (!isExist(conf, targetDirectory + "/" + filename)) {
-				fileSystem.rename(fileStatus.getPath(), new Path(targetDirectory + "/" + filename));
-			} else {
-				throw new RuntimeException("\t  Warn: '" + fileStatus.getPath() + "' cannot moved. Already exists.");
-			}
-		}
-	}
+    /**
+     * HDFS 상에서 지정한 파일을 다른 디렉토리로 파일을 이동시킨다.
+     *
+     * @param conf            Hadoop Configuration
+     * @param path            이동할 파일
+     * @param prefixToAppend  파일을 이동할 때 파일명의 prefix에 추가할 문자열
+     * @param targetDirectory 목적 디렉토리
+     * @throws java.io.IOException 파일을 이동할 수 없는 경우
+     */
+    public static void moveFileToDirectory(Configuration conf, String path, String prefixToAppend, String targetDirectory) throws IOException {
+        FileSystem fileSystem = FileSystem.get(conf);
+        FileStatus[] statuses = fileSystem.listStatus(new Path(path));
+        for (FileStatus fileStatus : statuses) {
+            String filename = prefixToAppend + "_" + fileStatus.getPath().getName();
+            if (!isExist(conf, targetDirectory + "/" + filename)) {
+                fileSystem.rename(fileStatus.getPath(), new Path(targetDirectory + "/" + filename));
+            } else {
+                throw new RuntimeException("\t  Warn: '" + fileStatus.getPath() + "' cannot moved. Already exists.");
+            }
+        }
+    }
 
-	/**
-	 * HDFS 상에서 지정한 파일을 다른 디렉토리로 파일을 이동시킨다.
-	 *
-	 * @param conf            Hadoop Configuration
-	 * @param delayFiles      이동할 파일 목록
-	 * @param targetDirectory 목적 디렉토리
-	 * @throws java.io.IOException 파일을 이동할 수 없는 경우
-	 */
-	public static void moveFilesToDirectory(Configuration conf, List<String> delayFiles, String targetDirectory) throws IOException {
-		for (String path : delayFiles) {
-			String filename = FileUtils.getFilename(path);
-			String delayedFilePrefix = filename.split("-")[0];
-			String outputHead = delayedFilePrefix.replaceAll("delay", "");
-			String outputMiddle = delayedFilePrefix.substring(0, 5);    // todo
-			String outputTail = filename.replaceAll(delayedFilePrefix, "");
+    /**
+     * HDFS 상에서 지정한 파일을 다른 디렉토리로 파일을 이동시킨다.
+     *
+     * @param conf            Hadoop Configuration
+     * @param delayFiles      이동할 파일 목록
+     * @param targetDirectory 목적 디렉토리
+     * @throws java.io.IOException 파일을 이동할 수 없는 경우
+     */
+    public static void moveFilesToDirectory(Configuration conf, List<String> delayFiles, String targetDirectory) throws IOException {
+        for (String path : delayFiles) {
+            String filename = FileUtils.getFilename(path);
+            String delayedFilePrefix = filename.split("-")[0];
+            String outputHead = delayedFilePrefix.replaceAll("delay", "");
+            String outputMiddle = delayedFilePrefix.substring(0, 5);    // todo
+            String outputTail = filename.replaceAll(delayedFilePrefix, "");
 
-			System.out.println("Acceleration Dir " + targetDirectory + "/" + outputHead + "_" + outputMiddle + outputTail);
-			makeDirectoryIfNotExists(targetDirectory, conf);
+            System.out.println("Acceleration Dir " + targetDirectory + "/" + outputHead + "_" + outputMiddle + outputTail);
+            makeDirectoryIfNotExists(targetDirectory, conf);
 
-			FileSystem fileSystem = FileSystem.get(conf);
-			fileSystem.rename(
-				new Path(path),
-				new Path(targetDirectory + "/" + outputHead + "_" + outputMiddle + outputTail));
+            FileSystem fileSystem = FileSystem.get(conf);
+            fileSystem.rename(
+                    new Path(path),
+                    new Path(targetDirectory + "/" + outputHead + "_" + outputMiddle + outputTail));
 
-			System.out.println("\t Moved: '" + path + "' --> '" + targetDirectory + "'");
-		}
-	}
+            System.out.println("\t Moved: '" + path + "' --> '" + targetDirectory + "'");
+        }
+    }
 
-	/**
-	 * HDFS 상에서 지정한 파일을 다른 디렉토리로 파일을 이동시킨다.
-	 *
-	 * @param conf            Hadoop Configuration
-	 * @param paths           이동할 파일 목록
-	 * @param prefixToAppend  파일을 이동할 때 파일명의 prefix에 추가할 문자열
-	 * @param targetDirectory 목적 디렉토리
-	 * @throws java.io.IOException 파일을 이동할 수 없는 경우
-	 */
-	public static void moveFilesToDirectory(Configuration conf, List<String> paths, String prefixToAppend, String targetDirectory) throws IOException {
-		for (String file : paths) {
-			try {
-				HdfsUtils.moveFileToDirectory(conf, file, prefixToAppend, targetDirectory);
-				System.out.println("\t Moved: '" + file + "' --> '" + targetDirectory + "'");
-			} catch (Exception ex) {
-				System.err.println(ex.getMessage());
-			}
-		}
-	}
+    /**
+     * HDFS 상에서 지정한 파일을 다른 디렉토리로 파일을 이동시킨다.
+     *
+     * @param conf            Hadoop Configuration
+     * @param paths           이동할 파일 목록
+     * @param prefixToAppend  파일을 이동할 때 파일명의 prefix에 추가할 문자열
+     * @param targetDirectory 목적 디렉토리
+     * @throws java.io.IOException 파일을 이동할 수 없는 경우
+     */
+    public static void moveFilesToDirectory(Configuration conf, List<String> paths, String prefixToAppend, String targetDirectory) throws IOException {
+        for (String file : paths) {
+            try {
+                HdfsUtils.moveFileToDirectory(conf, file, prefixToAppend, targetDirectory);
+                System.out.println("\t Moved: '" + file + "' --> '" + targetDirectory + "'");
+            } catch (Exception ex) {
+                System.err.println(ex.getMessage());
+            }
+        }
+    }
 
     /**
      * 디렉토리가 존재하지 않는다면 생성한다.
@@ -451,21 +434,21 @@ public class HdfsUtils {
         return false;
     }
 
-	/**
-	 * 디렉토리가 존재하지 않는다면 생성한다.
-	 *
-	 * @param directory 디렉토리
-	 * @param conf      Hadoop Configuration
-	 * @throws java.io.IOException HDFS 작업을 실패한 경우
-	 */
-	public static void makeDirectoryIfNotExists(String directory, Configuration conf) throws IOException {
-		FileSystem fileSystem = FileSystem.get(conf);
-		if (!isExist(conf, directory) && !isDirectory(fileSystem, directory)) {
-			fileSystem.mkdirs(new Path(directory));
-		}
-	}
+    /**
+     * 디렉토리가 존재하지 않는다면 생성한다.
+     *
+     * @param directory 디렉토리
+     * @param conf      Hadoop Configuration
+     * @throws java.io.IOException HDFS 작업을 실패한 경우
+     */
+    public static void makeDirectoryIfNotExists(String directory, Configuration conf) throws IOException {
+        FileSystem fileSystem = FileSystem.get(conf);
+        if (!isExist(conf, directory) && !isDirectory(fileSystem, directory)) {
+            fileSystem.mkdirs(new Path(directory));
+        }
+    }
 
-	/**
+    /**
      * 지정한 경로에 파일이 존재하는지 확인한다.
      *
      * @param path 존재 여부를 확인할 절대 경로
@@ -479,18 +462,18 @@ public class HdfsUtils {
         return status != null;
     }
 
-	/**
-	 * 지정한 경로에 파일이 존재하는지 확인한다.
-	 *
-	 * @param conf Haodop Job Configuration
-	 * @param path 존재 여부를 확인할 절대 경로
-	 * @return 존재한다면 <tt>true</tt>
-	 * @throws java.io.IOException 파일 존재 여부를 알 수 없거나, HDFS에 접근할 수 없는 경우
-	 */
-	public static boolean isExist(Configuration conf, String path) throws IOException {
-		FileSystem fs = FileSystem.get(conf);
-		return fs.exists(new Path(path));
-	}
+    /**
+     * 지정한 경로에 파일이 존재하는지 확인한다.
+     *
+     * @param conf Haodop Job Configuration
+     * @param path 존재 여부를 확인할 절대 경로
+     * @return 존재한다면 <tt>true</tt>
+     * @throws java.io.IOException 파일 존재 여부를 알 수 없거나, HDFS에 접근할 수 없는 경우
+     */
+    public static boolean isExist(Configuration conf, String path) throws IOException {
+        FileSystem fs = FileSystem.get(conf);
+        return fs.exists(new Path(path));
+    }
 
     /**
      * HDFS에서 지정한 디렉토리의 모든 파일을 삭제한다.
@@ -558,65 +541,65 @@ public class HdfsUtils {
         fileSystem.delete(new Path(path + "_temporary"), true);
     }
 
-	/**
-	 * HDFS의 해당 경로의 모든 파일에서 가장 최신 파일 하나를 반환한다.
-	 *
-	 * @param conf       Hadoop Configuration
-	 * @param path       경로
-	 * @param pathFilter 파일을 필터링하는 필터
-	 * @return 가장 최신 파일
-	 * @throws java.io.IOException HDFS 작업을 실패한 경우
-	 */
-	public static String getLatestFile(Configuration conf, String path, PathFilter pathFilter) throws IOException {
-		List<SortableFileStatus> files = new ArrayList<SortableFileStatus>();
-		FileSystem fs = FileSystem.get(conf);
-		FileStatus[] statuses = fs.listStatus(new Path(path), pathFilter != null ? pathFilter : new BypassPathFilter());
-		if (statuses != null) {
-			for (FileStatus fileStatus : statuses) {
-				if (!fileStatus.isDir()) {
-					files.add(new SortableFileStatus(fileStatus));
-				}
-			}
-		}
-		Collections.sort(files);
-		FileStatus fileStatus = files.get(0).fileStatus;
-		return fileStatus.getPath().toUri().getPath();
-	}
+    /**
+     * HDFS의 해당 경로의 모든 파일에서 가장 최신 파일 하나를 반환한다.
+     *
+     * @param conf       Hadoop Configuration
+     * @param path       경로
+     * @param pathFilter 파일을 필터링하는 필터
+     * @return 가장 최신 파일
+     * @throws java.io.IOException HDFS 작업을 실패한 경우
+     */
+    public static String getLatestFile(Configuration conf, String path, PathFilter pathFilter) throws IOException {
+        List<SortableFileStatus> files = new ArrayList<SortableFileStatus>();
+        FileSystem fs = FileSystem.get(conf);
+        FileStatus[] statuses = fs.listStatus(new Path(path), pathFilter != null ? pathFilter : new BypassPathFilter());
+        if (statuses != null) {
+            for (FileStatus fileStatus : statuses) {
+                if (!fileStatus.isDir()) {
+                    files.add(new SortableFileStatus(fileStatus));
+                }
+            }
+        }
+        Collections.sort(files);
+        FileStatus fileStatus = files.get(0).fileStatus;
+        return fileStatus.getPath().toUri().getPath();
+    }
 
-	/**
-	 * 지정한 경로를 삭제한다.
-	 *
-	 * @param configuration Hadoop Configuration
-	 * @param path          삭제할 경로
-	 * @throws java.io.IOException 삭제할 수 없는 경우
-	 */
-	public static void delete(Configuration configuration, String path) throws IOException {
-		FileSystem fileSystem = FileSystem.get(configuration);
-		Path source = new Path(path);
-		fileSystem.delete(source, true);
-	}
+    /**
+     * 지정한 경로를 삭제한다.
+     *
+     * @param configuration Hadoop Configuration
+     * @param path          삭제할 경로
+     * @throws java.io.IOException 삭제할 수 없는 경우
+     */
+    public static void delete(Configuration configuration, String path) throws IOException {
+        FileSystem fileSystem = FileSystem.get(configuration);
+        Path source = new Path(path);
+        fileSystem.delete(source, true);
+    }
 
-	/**
-	 * HDFS의 해당 경로의 모든 파일에서 prefix로 시작하는 파일 목록을 반환한다.
-	 *
-	 * @param conf       Configuration
-	 * @param path       경로
-	 * @param prefix     파일의 Prefix
-	 * @param pathFilter 파일을 필터링하는 필터
-	 * @return 지정한 prefix로 파일명이 시작하는 파일 목록
-	 * @throws java.io.IOException HDFS 작업을 실패한 경우
-	 */
-	public static List<String> getPrefixFiles(Configuration conf, String path, String prefix, PathFilter pathFilter) throws IOException {
-		List<String> files = new ArrayList<String>();
-		FileSystem fs = FileSystem.get(conf);
-		FileStatus[] statuses = fs.listStatus(new Path(path), pathFilter != null ? pathFilter : new BypassPathFilter());
-		if (statuses != null) {
-			for (FileStatus fileStatus : statuses) {
-				if (!fileStatus.isDir() && fileStatus.getPath().getName().startsWith(prefix)) {
-					files.add(fileStatus.getPath().toUri().getPath());
-				}
-			}
-		}
-		return files;
-	}
+    /**
+     * HDFS의 해당 경로의 모든 파일에서 prefix로 시작하는 파일 목록을 반환한다.
+     *
+     * @param conf       Configuration
+     * @param path       경로
+     * @param prefix     파일의 Prefix
+     * @param pathFilter 파일을 필터링하는 필터
+     * @return 지정한 prefix로 파일명이 시작하는 파일 목록
+     * @throws java.io.IOException HDFS 작업을 실패한 경우
+     */
+    public static List<String> getPrefixFiles(Configuration conf, String path, String prefix, PathFilter pathFilter) throws IOException {
+        List<String> files = new ArrayList<String>();
+        FileSystem fs = FileSystem.get(conf);
+        FileStatus[] statuses = fs.listStatus(new Path(path), pathFilter != null ? pathFilter : new BypassPathFilter());
+        if (statuses != null) {
+            for (FileStatus fileStatus : statuses) {
+                if (!fileStatus.isDir() && fileStatus.getPath().getName().startsWith(prefix)) {
+                    files.add(fileStatus.getPath().toUri().getPath());
+                }
+            }
+        }
+        return files;
+    }
 }

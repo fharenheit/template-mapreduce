@@ -15,23 +15,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.openflamingo.mapreduce.etl.groupby;
 
 import org.apache.hadoop.io.NullWritable;
@@ -67,50 +50,50 @@ import static org.openflamingo.mapreduce.core.Constants.JOB_SUCCESS;
  */
 public class GroupByDriver extends AbstractJob {
 
-	/**
-	 * SLF4J API
-	 */
-	private static final Logger logger = LoggerFactory.getLogger(GroupByDriver.class);
+    /**
+     * SLF4J API
+     */
+    private static final Logger logger = LoggerFactory.getLogger(GroupByDriver.class);
 
-	public static void main(String[] args) throws Exception {
-		int res = ToolRunner.run(new GroupByDriver(), args);
-		System.exit(res);
-	}
+    public static void main(String[] args) throws Exception {
+        int res = ToolRunner.run(new GroupByDriver(), args);
+        System.exit(res);
+    }
 
-	@Override
-	public int run(String[] args) throws Exception {
-		addInputOption();
-		addOutputOption();
+    @Override
+    public int run(String[] args) throws Exception {
+        addInputOption();
+        addOutputOption();
 
-		addOption("inputDelimiter", "id", "입력 파일 컬럼 구분자", Delimiter.COMMA.getDelimiter());
-		addOption("keyValueDelimiter", "kd", "출력 파일의 key와 values들간의 컬럼 구분자", Delimiter.TAB.getDelimiter());
-		addOption("valueDelimiter", "vd", "아이템의 구분자", Delimiter.COMMA.getDelimiter());
-		addOption("groupByKey", "gk", "Group By의 기준이 될 컬럼의 위치 (0부터 시작)", true);
-		addOption("allowDuplicate", "ad", "중복 아이템의 허용 여부(기본값 false)", "false");
-		addOption("allowSort", "as", "Group By시 아이템의 정렬 여부(기본값 false)", "false");
+        addOption("inputDelimiter", "id", "입력 파일 컬럼 구분자", Delimiter.COMMA.getDelimiter());
+        addOption("keyValueDelimiter", "kd", "출력 파일의 key와 values들간의 컬럼 구분자", Delimiter.TAB.getDelimiter());
+        addOption("valueDelimiter", "vd", "아이템의 구분자", Delimiter.COMMA.getDelimiter());
+        addOption("groupByKey", "gk", "Group By의 기준이 될 컬럼의 위치 (0부터 시작)", true);
+        addOption("allowDuplicate", "ad", "중복 아이템의 허용 여부(기본값 false)", "false");
+        addOption("allowSort", "as", "Group By시 아이템의 정렬 여부(기본값 false)", "false");
 
-		Map<String, String> parsedArgs = parseArguments(args);
-		if (parsedArgs == null) {
-			return JOB_FAIL;
-		}
+        Map<String, String> parsedArgs = parseArguments(args);
+        if (parsedArgs == null) {
+            return JOB_FAIL;
+        }
 
-		Job job = prepareJob(getInputPath(), getOutputPath(),
-			TextInputFormat.class,
-			GroupByMapper.class,
-			Text.class,
-			Text.class,
-			GroupByReducer.class,
-			NullWritable.class,
-			Text.class,
-			TextOutputFormat.class);
+        Job job = prepareJob(getInputPath(), getOutputPath(),
+                TextInputFormat.class,
+                GroupByMapper.class,
+                Text.class,
+                Text.class,
+                GroupByReducer.class,
+                NullWritable.class,
+                Text.class,
+                TextOutputFormat.class);
 
-		job.getConfiguration().set("inputDelimiter", parsedArgs.get("--inputDelimiter"));
-		job.getConfiguration().set("keyValueDelimiter", parsedArgs.get("--keyValueDelimiter"));
-		job.getConfiguration().set("groupByKey", parsedArgs.get("--groupByKey"));
-		job.getConfiguration().set("allowDuplicate", parsedArgs.get("--allowDuplicate"));
-		job.getConfiguration().set("allowSort", parsedArgs.get("--allowSort"));
-		job.getConfiguration().set("valueDelimiter", parsedArgs.get("--valueDelimiter"));
+        job.getConfiguration().set("inputDelimiter", parsedArgs.get("--inputDelimiter"));
+        job.getConfiguration().set("keyValueDelimiter", parsedArgs.get("--keyValueDelimiter"));
+        job.getConfiguration().set("groupByKey", parsedArgs.get("--groupByKey"));
+        job.getConfiguration().set("allowDuplicate", parsedArgs.get("--allowDuplicate"));
+        job.getConfiguration().set("allowSort", parsedArgs.get("--allowSort"));
+        job.getConfiguration().set("valueDelimiter", parsedArgs.get("--valueDelimiter"));
 
-		return job.waitForCompletion(true) ? JOB_SUCCESS : JOB_FAIL;
-	}
+        return job.waitForCompletion(true) ? JOB_SUCCESS : JOB_FAIL;
+    }
 }

@@ -55,11 +55,11 @@ public class ComparisonUtils {
             T message = first.next();
             T otherMessage = second.next();            /* element-wise equality */
             if (!(message == null ? otherMessage == null :
-                message.equals(otherMessage))) {
+                    message.equals(otherMessage))) {
                 return false;
             }
         }
-		/* length must also be equal */
+        /* length must also be equal */
         return !(first.hasNext() || second.hasNext());
     }
 }
