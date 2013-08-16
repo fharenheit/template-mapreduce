@@ -79,10 +79,10 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <ftp server="14.63.221.172"
-                                     remotedir="/root"
-                                     userid="root"
-                                     password="aQ2puqwmj"
+                                <ftp server=""
+                                     remotedir=""
+                                     userid=""
+                                     password=""
                                      passive="yes">
                                     <fileset dir="${basedir}/target">
                                         <include name="${project.build.finalName}.${packaging}"/>
