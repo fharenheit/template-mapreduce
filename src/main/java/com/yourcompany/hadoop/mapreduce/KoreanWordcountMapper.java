@@ -37,11 +37,6 @@ import java.util.List;
 public class KoreanWordcountMapper extends Mapper<LongWritable, Text, Text, IntWritable> {
 
     /**
-     * Lucene 4 기반 한글 형태소 분석기
-     */
-    private KoreanAnalyzer analyzer = null;
-
-    /**
      * Integer Counter
      */
     private static IntWritable one = new IntWritable(1);
@@ -51,29 +46,44 @@ public class KoreanWordcountMapper extends Mapper<LongWritable, Text, Text, IntW
      */
     private static Text wordText = new Text();
 
+    private boolean exactMatch;
+
+    private boolean bigrammable;
+
+    private boolean hasOrigin;
+
+    private boolean originCNoun;
+
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         Configuration configuration = context.getConfiguration();
-        boolean exactMatch = configuration.getBoolean("exactMatch", false);
-        boolean bigrammable = configuration.getBoolean("bigrammable", false);
-        boolean hasOrigin = configuration.getBoolean("hasOrigin", false);
-        boolean originCNoun = configuration.getBoolean("originCNoun", false);
-
-        analyzer = new KoreanAnalyzer();
-        analyzer.setBigrammable(bigrammable);
-        analyzer.setExactMatch(exactMatch);
-        analyzer.setHasOrigin(hasOrigin);
-        analyzer.setOriginCNoun(originCNoun);
+        exactMatch = configuration.getBoolean("exactMatch", false);
+        bigrammable = configuration.getBoolean("bigrammable", false);
+        hasOrigin = configuration.getBoolean("hasOrigin", false);
+        originCNoun = configuration.getBoolean("originCNoun", false);
     }
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+        KoreanAnalyzer analyzer = getKoreanAnalyzer();
         String row = value.toString();
         List<String> words = Lucene4Utils.tokenizeString(analyzer, row);
         for (String word : words) {
             wordText.set(word);
             context.write(wordText, one);
         }
+    }
+
+    /**
+     * @return
+     */
+    private KoreanAnalyzer getKoreanAnalyzer() {
+        KoreanAnalyzer analyzer = new KoreanAnalyzer();
+        analyzer.setBigrammable(bigrammable);
+        analyzer.setExactMatch(exactMatch);
+        analyzer.setHasOrigin(hasOrigin);
+        analyzer.setOriginCNoun(originCNoun);
+        return analyzer;
     }
 }
 

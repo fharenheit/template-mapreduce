@@ -35,16 +35,16 @@ public class KoreanWordcountReducer extends Reducer<Text, IntWritable, Text, Int
      * 파일에 기록하기 위해서 각 단어별 최대 지지도. 이 지지도 보다 낮은 지지도를 갖는 단어는
      * 최종 결과 파일에 기록하지 않는다. 기본값은 10이다.
      */
-    private int maxSupport = 0;
+    private int minSupport = 0;
 
     /**
      * 기본으로 적용할 최대 지지도.
      */
-    private final static int DEFAULT_MAX_SUPPORT = 10;
+    private final static int DEFAULT_MIN_SUPPORT = 10;
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
-        this.maxSupport = context.getConfiguration().getInt("maxSupport", DEFAULT_MAX_SUPPORT);
+        this.minSupport = context.getConfiguration().getInt("minSupport", DEFAULT_MIN_SUPPORT);
     }
 
     @Override
@@ -56,7 +56,7 @@ public class KoreanWordcountReducer extends Reducer<Text, IntWritable, Text, Int
 
         context.getCounter("COUNT", "UNIQUE_WORD").increment(1);
 
-        if (sum > maxSupport) {
+        if (sum >= minSupport) {
             context.getCounter("COUNT", "OVER_THRESHOLD").increment(1);
             context.write(key, new IntWritable(sum));
         } else {

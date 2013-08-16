@@ -31,7 +31,7 @@ import java.io.IOException;
  * 한글 형태소 분석기 기반 Wordcount MapReduce Job Driver.
  * <p/>
  * <pre>
- *     #hadoop jar JAR_FILE wordcount -input IN -output OUT -maxSupport 0 -reducer 2 -exactMatch true
+ *     #hadoop jar JAR_FILE wordcount -input IN -output OUT -minSupport 0 -reducer 2 -exactMatch true
  *     -bigrammable false -hasOrigin false -originCNoun false
  * </pre>
  *
@@ -80,8 +80,8 @@ public class KoreanWordcountDriver extends org.apache.hadoop.conf.Configured imp
                 job.getConfiguration().set("originCNoun", args[++i]);
             } else if ("-reducer".equals(args[i])) {
                 job.setNumReduceTasks(Integer.parseInt(args[++i]));
-            } else if ("-maxSupport".equals(args[i])) {
-                job.getConfiguration().set("maxSupport", args[++i]);
+            } else if ("-minSupport".equals(args[i])) {
+                job.getConfiguration().set("minSupport", args[++i]);
             }
         }
     }
