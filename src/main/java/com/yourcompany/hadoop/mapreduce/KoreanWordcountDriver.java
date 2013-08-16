@@ -78,6 +78,8 @@ public class KoreanWordcountDriver extends org.apache.hadoop.conf.Configured imp
                 job.getConfiguration().set("originCNoun", args[++i]);
             } else if ("-reducer".equals(args[i])) {
                 job.setNumReduceTasks(Integer.parseInt(args[++i]));
+            } else if ("-maxSupport".equals(args[i])) {
+                job.getConfiguration().set("maxSupport", args[++i]);
             }
         }
     }
