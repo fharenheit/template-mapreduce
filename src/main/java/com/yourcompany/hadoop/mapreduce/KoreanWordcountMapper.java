@@ -54,10 +54,10 @@ public class KoreanWordcountMapper extends Mapper<LongWritable, Text, Text, IntW
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         Configuration configuration = context.getConfiguration();
-        boolean exactMatch = configuration.getBoolean("exactMatch", true);
-        boolean bigrammable = configuration.getBoolean("bigrammable", true);
-        boolean hasOrigin = configuration.getBoolean("hasOrigin", true);
-        boolean originCNoun = configuration.getBoolean("originCNoun", true);
+        boolean exactMatch = configuration.getBoolean("exactMatch", false);
+        boolean bigrammable = configuration.getBoolean("bigrammable", false);
+        boolean hasOrigin = configuration.getBoolean("hasOrigin", false);
+        boolean originCNoun = configuration.getBoolean("originCNoun", false);
 
         analyzer = new KoreanAnalyzer();
         analyzer.setBigrammable(bigrammable);
