@@ -30,7 +30,7 @@ import java.io.IOException;
  * @author Edward KIM
  * @version 0.1
  */
-public class AggregateMapper extends Mapper<LongWritable, Text, NullWritable, Text> {
+public class UnionMapper extends Mapper<LongWritable, Text, NullWritable, Text> {
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {

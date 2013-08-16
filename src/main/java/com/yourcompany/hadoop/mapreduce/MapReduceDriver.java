@@ -17,6 +17,7 @@
  */
 package com.yourcompany.hadoop.mapreduce;
 
+import com.yourcompany.hadoop.mapreduce.aggregate.UnionDriver;
 import org.apache.hadoop.util.ProgramDriver;
 import org.openflamingo.mapreduce.core.Constants;
 
@@ -31,8 +32,8 @@ public class MapReduceDriver {
     public static void main(String argv[]) {
         ProgramDriver programDriver = new ProgramDriver();
         try {
-            programDriver.addClass("pearson", KoreanWordcountDriver.class, "Pearson Correlation MapReduce Job");
-            programDriver.addClass("aggregate", com.yourcompany.hadoop.mapreduce.aggregate.AggregateDriver.class, "File Union MapReduce Job");
+            programDriver.addClass("wordcount", KoreanWordcountDriver.class, "Korean Wordcount MapReduce Job");
+            programDriver.addClass("union", UnionDriver.class, "File Union MapReduce Job");
             programDriver.driver(argv);
             System.exit(Constants.JOB_SUCCESS);
         } catch (Throwable e) {

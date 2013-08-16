@@ -37,11 +37,11 @@ import java.io.IOException;
  * @author Edward KIM
  * @version 0.1
  */
-public class AggregateDriver extends org.apache.hadoop.conf.Configured
+public class UnionDriver extends org.apache.hadoop.conf.Configured
         implements org.apache.hadoop.util.Tool {
 
     public static void main(String[] args) throws Exception {
-        int res = ToolRunner.run(new AggregateDriver(), args);
+        int res = ToolRunner.run(new UnionDriver(), args);
         System.exit(res);
     }
 
@@ -50,10 +50,10 @@ public class AggregateDriver extends org.apache.hadoop.conf.Configured
 
         parseArguements(args, job);
 
-        job.setJarByClass(AggregateDriver.class);
+        job.setJarByClass(UnionDriver.class);
 
         // Mapper Class
-        job.setMapperClass(AggregateMapper.class);
+        job.setMapperClass(UnionMapper.class);
 
         job.setMapOutputKeyClass(NullWritable.class);
         job.setMapOutputValueClass(Text.class);
