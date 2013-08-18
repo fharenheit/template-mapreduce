@@ -65,6 +65,7 @@ public class KoreanWordcountMapper extends Mapper<LongWritable, Text, Text, IntW
 
     @Override
     protected void map(LongWritable key, Text value, Context context) throws IOException, InterruptedException {
+        // KoreanAnalyzer는 공유시 정상적인 결과가 나오지 않으므로 필요시 마다 생성한다.
         KoreanAnalyzer analyzer = getKoreanAnalyzer();
         String row = value.toString();
         List<String> words = Lucene4Utils.tokenizeString(analyzer, row);
@@ -75,7 +76,9 @@ public class KoreanWordcountMapper extends Mapper<LongWritable, Text, Text, IntW
     }
 
     /**
-     * @return
+     * 한글 형태소 분석을 지원하는 Lucene Analyzer를 반환한다.
+     *
+     * @return 한글 형태소 분석을 지원하는 Lucene Analyzer
      */
     private KoreanAnalyzer getKoreanAnalyzer() {
         KoreanAnalyzer analyzer = new KoreanAnalyzer();
