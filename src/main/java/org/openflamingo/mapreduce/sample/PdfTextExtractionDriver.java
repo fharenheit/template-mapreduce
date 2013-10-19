@@ -18,18 +18,18 @@ public class PdfTextExtractionDriver {
         job.setMapperClass(PdfTextExtractionMapper.class);
 
         job.setInputFormat(SequenceFileAsBinaryInputFormat.class);
+        job.setOutputFormat(TextOutputFormat.class);
 
         job.setMapOutputKeyClass(NullWritable.class);
         job.setMapOutputValueClass(Text.class);
 
         job.setNumReduceTasks(0);
 
-        JobClient client = new JobClient();
-        RunningJob runningJob = client.submitJob(job);
+        RunningJob runningJob = JobClient.runJob(job);
 
         while (true) {
-            Thread.sleep(1000);
-            System.out.println("Map : " + runningJob.mapProgress() + ", Reducer : " + runningJob.reduceProgress() + "");
+            Thread.sleep(500);
+            System.out.println("Map : " + runningJob.mapProgress() * 100 + ", Reducer : " + runningJob.reduceProgress() * 100 + "");
             if (runningJob.isComplete()) {
                 System.exit(0);
             } else {
@@ -41,7 +41,7 @@ public class PdfTextExtractionDriver {
     private static void parseArguements(String[] args, JobConf job) throws IOException {
         for (int i = 0; i < args.length; ++i) {
             if ("-input".equals(args[i])) {
-                FileInputFormat.addInputPaths(job, args[++i]);
+                SequenceFileAsBinaryInputFormat.setInputPaths(job, args[++i]);
             } else if ("-output".equals(args[i])) {
                 FileOutputFormat.setOutputPath(job, new Path(args[++i]));
             } else if ("-line.delimiter".equals(args[i])) {

@@ -8,9 +8,9 @@ import org.apache.hadoop.mapred.Mapper;
 import org.apache.hadoop.mapred.OutputCollector;
 import org.apache.hadoop.mapred.Reporter;
 import org.apache.tika.metadata.Metadata;
-import org.apache.tika.parser.AutoDetectParser;
 import org.apache.tika.parser.ParseContext;
 import org.apache.tika.parser.Parser;
+import org.apache.tika.parser.pdf.PDFParser;
 import org.apache.tika.sax.BodyContentHandler;
 import org.xml.sax.ContentHandler;
 
@@ -36,14 +36,17 @@ public class PdfTextExtractionMapper implements Mapper<BytesWritable, BytesWrita
     @Override
     public void map(BytesWritable key, BytesWritable value, OutputCollector<NullWritable, Text> collector, Reporter reporter) throws IOException {
         try {
+            byte[] content = value.getBytes();
+            ByteArrayInputStream bais = new ByteArrayInputStream(content);
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            Parser parser = new AutoDetectParser();
-            ContentHandler handler = new BodyContentHandler(baos);
-            Metadata metadata = new Metadata();
-            parser.parse(new ByteArrayInputStream(value.getBytes()), handler, metadata, new ParseContext());
-            String body = new String(baos.toByteArray());
 
-            Text text = new Text(filename + keyValueDelimiter + body.replaceAll("\n", lineDelimiter));
+            Parser parser = new PDFParser(); // PDF Parser
+            ContentHandler handler = new BodyContentHandler(baos);
+            parser.parse(bais, handler, new Metadata(), new ParseContext());
+
+            System.out.println(new String(key.getBytes()).trim());
+            String body = new String(baos.toByteArray());
+            Text text = new Text(new String(key.getBytes()).trim() + keyValueDelimiter + body.replaceAll("\n", lineDelimiter));
             collector.collect(NullWritable.get(), text);
         } catch (Exception ex) {
             reporter.getCounter("STAT", "PARSE_ERROR").increment(1);

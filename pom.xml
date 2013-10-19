@@ -42,7 +42,7 @@
         <jackson.version>1.9.12</jackson.version>
         <lucene.version>4.2.0</lucene.version>
         <tika.version>1.4</tika.version>
-        <spring.version>3.2.4.RELEASE</spring.version>
+        <pdfbox.version>1.8.2</pdfbox.version>
     </properties>
 
     <build>
@@ -71,61 +71,6 @@
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>ftp</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <ftp server=""
-                                     remotedir=""
-                                     userid=""
-                                     password=""
-                                     passive="yes">
-                                    <fileset dir="${basedir}/target">
-                                        <include name="${project.build.finalName}.${packaging}"/>
-                                    </fileset>
-                                </ftp>
-                            </tasks>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <unzip src="${basedir}/lib/koreananalyzer.4x-20130430.jar"
-                                       dest="${project.build.outputDirectory}"/>
-
-                                <unzip src="${basedir}/lib/piggybank-0.11.0.jar"
-                                       dest="${project.build.outputDirectory}"/>
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>ant</groupId>
-                        <artifactId>ant-commons-net</artifactId>
-                        <version>1.6.5</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>commons-net</groupId>
-                        <artifactId>commons-net</artifactId>
-                        <version>1.4.1</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
@@ -138,19 +83,24 @@
                             <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>org.springframework</groupId>
-                                    <artifactId>spring-core</artifactId>
-                                    <version>${spring.version}</version>
+                                    <groupId>org.apache.pdfbox</groupId>
+                                    <artifactId>fontbox</artifactId>
+                                    <version>1.8.2</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.apache.pdfbox</groupId>
+                                    <artifactId>pdfbox</artifactId>
+                                    <version>1.8.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.apache.tika</groupId>
                                     <artifactId>tika-core</artifactId>
-                                    <version>${tika.version}</version>
+                                    <version>1.4</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.apache.tika</groupId>
                                     <artifactId>tika-parsers</artifactId>
-                                    <version>${tika.version}</version>
+                                    <version>1.4</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>com.google.guava</groupId>
@@ -326,16 +276,6 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
-        </dependency>
-
-        <!-- ================== -->
-        <!--  Spring Framework  -->
-        <!-- ================== -->
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
         </dependency>
 
         <!-- ================ -->
@@ -677,6 +617,18 @@
             <groupId>org.apache.tika</groupId>
             <artifactId>tika-parsers</artifactId>
             <version>${tika.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>pdfbox</artifactId>
+            <version>${pdfbox.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.pdfbox</groupId>
+            <artifactId>fontbox</artifactId>
+            <version>${pdfbox.version}</version>
         </dependency>
 
         <!-- ========= -->
