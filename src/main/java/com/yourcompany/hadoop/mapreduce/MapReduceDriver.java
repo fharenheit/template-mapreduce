@@ -20,6 +20,7 @@ package com.yourcompany.hadoop.mapreduce;
 import com.yourcompany.hadoop.mapreduce.aggregate.UnionDriver;
 import org.apache.hadoop.util.ProgramDriver;
 import org.openflamingo.mapreduce.core.Constants;
+import org.openflamingo.mapreduce.sample.FlamingoIntegratedDriver;
 
 /**
  * 모든 MapReduce를 실행하기 위한 Alias를 제공하는 Program Driver.
@@ -34,6 +35,7 @@ public class MapReduceDriver {
         try {
             programDriver.addClass("wordcount", KoreanWordcountDriver.class, "Korean Wordcount MapReduce Job");
             programDriver.addClass("union", UnionDriver.class, "File Union MapReduce Job");
+            programDriver.addClass("flamingo", FlamingoIntegratedDriver.class, "Flamingo Integrated MapReduce Job");
             programDriver.driver(argv);
             System.exit(Constants.JOB_SUCCESS);
         } catch (Throwable e) {

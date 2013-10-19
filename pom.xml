@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
     <name>Flamingo MapReduce Template</name>
     <description>Flamingo MapReduce Template</description>
-    <url>http://www.openflamingo.org</url>
+    <url>http://www.opencloudengine.org</url>
     <inceptionYear>2011</inceptionYear>
 
     <properties>
@@ -41,6 +41,7 @@
         <jetty.version>6.1.26</jetty.version>
         <jackson.version>1.9.12</jackson.version>
         <lucene.version>4.2.0</lucene.version>
+        <tika.version>1.4</tika.version>
     </properties>
 
     <build>
@@ -79,10 +80,10 @@
                         </goals>
                         <configuration>
                             <tasks>
-                                <ftp server="14.63.221.172"
-                                     remotedir="/root/humuson/..."
-                                     userid="root"
-                                     password="aQ2puqwmj"
+                                <ftp server=""
+                                     remotedir=""
+                                     userid=""
+                                     password=""
                                      passive="yes">
                                     <fileset dir="${basedir}/target">
                                         <include name="${project.build.finalName}.${packaging}"/>
@@ -136,6 +137,16 @@
                             <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                             <artifactItems>
                                 <artifactItem>
+                                    <groupId>org.apache.tika</groupId>
+                                    <artifactId>tika-core</artifactId>
+                                    <version>${tika.version}</version>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.apache.tika</groupId>
+                                    <artifactId>tika-parsers</artifactId>
+                                    <version>${tika.version}</version>
+                                </artifactItem>
+                                <artifactItem>
                                     <groupId>com.google.guava</groupId>
                                     <artifactId>guava</artifactId>
                                     <version>${guava.version}</version>
@@ -171,19 +182,19 @@
                                     <version>${lucene.version}</version>
                                 </artifactItem>
                                 <artifactItem>
-                                	<groupId>org.apache.lucene</groupId>
-                                	<artifactId>lucene-queries</artifactId>
-                                	<version>${lucene.version}</version>
+                                    <groupId>org.apache.lucene</groupId>
+                                    <artifactId>lucene-queries</artifactId>
+                                    <version>${lucene.version}</version>
                                 </artifactItem>
                                 <artifactItem>
-                                	<groupId>org.apache.lucene</groupId>
-                                	<artifactId>lucene-queryparser</artifactId>
-                                	<version>${lucene.version}</version>
+                                    <groupId>org.apache.lucene</groupId>
+                                    <artifactId>lucene-queryparser</artifactId>
+                                    <version>${lucene.version}</version>
                                 </artifactItem>
                                 <artifactItem>
-                                	<groupId>org.apache.lucene</groupId>
-                                	<artifactId>lucene-analyzers-common</artifactId>
-                                	<version>${lucene.version}</version>
+                                    <groupId>org.apache.lucene</groupId>
+                                    <artifactId>lucene-analyzers-common</artifactId>
+                                    <version>${lucene.version}</version>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
@@ -316,27 +327,27 @@
         <!-- ================ -->
 
         <dependency>
-        	<groupId>org.apache.lucene</groupId>
-        	<artifactId>lucene-core</artifactId>
-        	<version>${lucene.version}</version>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-core</artifactId>
+            <version>${lucene.version}</version>
         </dependency>
 
         <dependency>
-        	<groupId>org.apache.lucene</groupId>
-        	<artifactId>lucene-queries</artifactId>
-        	<version>${lucene.version}</version>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-queries</artifactId>
+            <version>${lucene.version}</version>
         </dependency>
 
         <dependency>
-        	<groupId>org.apache.lucene</groupId>
-        	<artifactId>lucene-queryparser</artifactId>
-        	<version>${lucene.version}</version>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-queryparser</artifactId>
+            <version>${lucene.version}</version>
         </dependency>
 
         <dependency>
-        	<groupId>org.apache.lucene</groupId>
-        	<artifactId>lucene-analyzers-common</artifactId>
-        	<version>${lucene.version}</version>
+            <groupId>org.apache.lucene</groupId>
+            <artifactId>lucene-analyzers-common</artifactId>
+            <version>${lucene.version}</version>
         </dependency>
 
         <dependency>
@@ -636,6 +647,22 @@
             </exclusions>
         </dependency>
 
+        <!-- ============= -->
+        <!--  Apache Tika  -->
+        <!-- ============= -->
+
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-core</artifactId>
+            <version>${tika.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tika</groupId>
+            <artifactId>tika-parsers</artifactId>
+            <version>${tika.version}</version>
+        </dependency>
+
         <!-- ========= -->
         <!--  Utility  -->
         <!-- ========= -->
@@ -850,6 +877,19 @@
         <url>https://github.com/fharenheit/template-mapreduce</url>
     </scm>
 
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://maven.opencloudengine.org/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <distributionManagement>
         <repository>
             <id>release</id>
@@ -881,8 +921,8 @@
                 <role>Manager</role>
                 <role>Commiter</role>
             </roles>
-            <url>http://www.facebook.com/JBossUserGroup</url>
-            <email>fharenheit@openflamingo.org</email>
+            <url>http://www.opencloudengine.org</url>
+            <email>fharenheit@gmail.com</email>
         </developer>
     </developers>
 </project>
