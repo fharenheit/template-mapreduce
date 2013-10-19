@@ -42,6 +42,7 @@
         <jackson.version>1.9.12</jackson.version>
         <lucene.version>4.2.0</lucene.version>
         <tika.version>1.4</tika.version>
+        <spring.version>3.2.4.RELEASE</spring.version>
     </properties>
 
     <build>
@@ -136,6 +137,11 @@
                         <configuration>
                             <outputDirectory>${project.build.outputDirectory}</outputDirectory>
                             <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.springframework</groupId>
+                                    <artifactId>spring-core</artifactId>
+                                    <version>${spring.version}</version>
+                                </artifactItem>
                                 <artifactItem>
                                     <groupId>org.apache.tika</groupId>
                                     <artifactId>tika-core</artifactId>
@@ -320,6 +326,16 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+
+        <!-- ================== -->
+        <!--  Spring Framework  -->
+        <!-- ================== -->
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${spring.version}</version>
         </dependency>
 
         <!-- ================ -->
