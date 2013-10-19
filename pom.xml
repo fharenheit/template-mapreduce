@@ -20,10 +20,10 @@
         <javadoc.locale>ko_KR</javadoc.locale>
 
         <!-- Dependencies -->
-        <hadoop.version>1.1.1</hadoop.version>
-        <mahout.version>0.7</mahout.version>
-        <hive.version>0.10.0</hive.version>
-        <pig.version>0.11.0</pig.version>
+        <hadoop.version>1.2.1</hadoop.version>
+        <mahout.version>0.8</mahout.version>
+        <hive.version>0.11.0</hive.version>
+        <pig.version>0.11.1</pig.version>
         <slf4j.version>1.6.4</slf4j.version>
         <log4j.version>1.2.16</log4j.version>
         <commons.lang.version>2.5</commons.lang.version>
@@ -33,9 +33,9 @@
         <commons.collection.version>3.2.1</commons.collection.version>
         <commons.math3.version>3.1.1</commons.math3.version>
         <datafu.version>0.0.8</datafu.version>
-        <guava.version>r09</guava.version>
-        <hadoop.mrunit.version>0.9.0-hadoop1</hadoop.mrunit.version>
-        <pigunit.version>0.9</pigunit.version>
+        <guava.version>13.0.1</guava.version>
+        <hadoop.mrunit.version>1.0</hadoop.mrunit.version>
+        <pigunit.version>0.11.1</pigunit.version>
         <mokito.version>1.8.5</mokito.version>
         <junit.version>4.10</junit.version>
         <jetty.version>6.1.26</jetty.version>
