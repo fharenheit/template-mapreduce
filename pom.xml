@@ -23,6 +23,7 @@
         <hadoop.version>1.2.1</hadoop.version>
         <mahout.version>0.8</mahout.version>
         <hive.version>0.11.0</hive.version>
+        <hcatalog.version>0.11.0</hcatalog.version>
         <pig.version>0.11.1</pig.version>
         <slf4j.version>1.6.4</slf4j.version>
         <log4j.version>1.2.16</log4j.version>
@@ -409,6 +410,16 @@
             <version>${pig.version}</version>
             <scope>system</scope>
             <systemPath>${basedir}/lib/piggybank-0.11.0.jar</systemPath>
+        </dependency>
+
+        <!-- ========== -->
+        <!--  HCatalog  -->
+        <!-- ========== -->
+
+        <dependency>
+            <groupId>org.apache.hcatalog</groupId>
+            <artifactId>hcatalog-core</artifactId>
+            <version>${hcatalog.version}</version>
         </dependency>
 
         <!-- ====== -->
