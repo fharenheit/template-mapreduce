@@ -18,6 +18,7 @@
 package com.yourcompany.hadoop.mapreduce;
 
 import com.yourcompany.hadoop.mapreduce.aggregate.UnionDriver;
+import com.yourcompany.hadoop.mapreduce.hcatalog.HCatalogExampleDriver;
 import org.apache.hadoop.util.ProgramDriver;
 import org.openflamingo.mapreduce.core.Constants;
 import org.openflamingo.mapreduce.sample.FlamingoIntegratedDriver;
@@ -37,6 +38,7 @@ public class MapReduceDriver {
             programDriver.addClass("wordcount", KoreanWordcountDriver.class, "Korean Wordcount MapReduce Job");
             programDriver.addClass("union", UnionDriver.class, "File Union MapReduce Job");
             programDriver.addClass("flamingo", FlamingoIntegratedDriver.class, "Flamingo Integrated MapReduce Job");
+            programDriver.addClass("hcatalog", HCatalogExampleDriver.class, "HCatalog MapReduce Job");
             programDriver.driver(argv);
             System.exit(Constants.JOB_SUCCESS);
         } catch (Throwable e) {
