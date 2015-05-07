@@ -17,7 +17,6 @@ s * Licensed to the Apache Software Foundation (ASF) under one
  */
 package org.openflamingo.mapreduce.sample;
 
-import com.yourcompany.hadoop.mapreduce.KoreanWordcountMapper;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
@@ -29,7 +28,7 @@ import org.apache.hadoop.util.ToolRunner;
 import java.io.IOException;
 
 /**
- * Wordcount Drkver
+ * Wordcount 예제.
  *
  * @author Edward KIM
  * @version 0.1
@@ -48,7 +47,7 @@ public class WordCountDriver extends org.apache.hadoop.conf.Configured implement
         job.setJarByClass(WordCountDriver.class);
 
         // Mapper & Reducer Class
-        job.setMapperClass(KoreanWordcountMapper.class);
+        job.setMapperClass(WordcountMapper.class);
         job.setReducerClass(WordcountReducer.class);
 
         // Mapper Output Key & Value Type after Hadoop 0.20

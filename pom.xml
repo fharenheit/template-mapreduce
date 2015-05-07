@@ -2,940 +2,416 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
-    <modelVersion>4.0.0</modelVersion>
-    <groupId>org.openflamingo.hadoop.mapreduce</groupId>
-    <artifactId>mapreduce-template</artifactId>
-    <version>0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name>Flamingo MapReduce Template</name>
-    <description>Flamingo MapReduce Template</description>
-    <url>http://www.opencloudengine.org</url>
-    <inceptionYear>2011</inceptionYear>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>org.openflamingo.hadoop.mapreduce</groupId>
+	<artifactId>mapreduce-template</artifactId>
+	<version>0.2-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>Flamingo MapReduce Template</name>
+	<description>Flamingo MapReduce Template</description>
+	<url>http://www.opencloudengine.org</url>
+	<inceptionYear>2011</inceptionYear>
 
-    <properties>
-        <!-- Project -->
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-        <output.encoding>UTF-8</output.encoding>
-        <javadoc.locale>ko_KR</javadoc.locale>
+	<properties>
+		<!-- Project -->
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
+		<output.encoding>UTF-8</output.encoding>
+		<javadoc.locale>ko_KR</javadoc.locale>
 
-        <!-- Dependencies -->
-        <hadoop.version>1.2.1</hadoop.version>
-        <mahout.version>0.8</mahout.version>
-        <hive.version>0.11.0</hive.version>
-        <hcatalog.version>0.11.0</hcatalog.version>
-        <pig.version>0.11.1</pig.version>
-        <slf4j.version>1.6.4</slf4j.version>
-        <log4j.version>1.2.16</log4j.version>
-        <commons.lang.version>2.5</commons.lang.version>
-        <commons.logging.version>1.1.1</commons.logging.version>
-        <commons.cli.version>1.2</commons.cli.version>
-        <commons.cli2.version>2.0-mahout</commons.cli2.version>
-        <commons.collection.version>3.2.1</commons.collection.version>
-        <commons.math3.version>3.1.1</commons.math3.version>
-        <datafu.version>0.0.8</datafu.version>
-        <guava.version>13.0.1</guava.version>
-        <hadoop.mrunit.version>1.0</hadoop.mrunit.version>
-        <pigunit.version>0.11.1</pigunit.version>
-        <mokito.version>1.8.5</mokito.version>
-        <junit.version>4.10</junit.version>
-        <jetty.version>6.1.26</jetty.version>
-        <jackson.version>1.9.12</jackson.version>
-        <lucene.version>4.2.0</lucene.version>
-        <tika.version>1.4</tika.version>
-        <pdfbox.version>1.8.2</pdfbox.version>
-    </properties>
+		<!-- Dependencies -->
+		<slf4j.version>1.6.4</slf4j.version>
+		<log4j.version>1.2.16</log4j.version>
+		<commons.lang.version>2.5</commons.lang.version>
+		<commons.logging.version>1.1.1</commons.logging.version>
+		<commons.cli.version>1.2</commons.cli.version>
+		<commons.cli2.version>2.0-mahout</commons.cli2.version>
+		<commons.collection.version>3.2.1</commons.collection.version>
+		<commons.math3.version>3.1.1</commons.math3.version>
+		<datafu.version>0.0.8</datafu.version>
+		<guava.version>13.0.1</guava.version>
+		<pigunit.version>0.11.1</pigunit.version>
+		<mokito.version>1.8.5</mokito.version>
+		<junit.version>4.10</junit.version>
+		<jetty.version>6.1.26</jetty.version>
+		<jackson.version>1.9.12</jackson.version>
+		<lucene.version>4.2.0</lucene.version>
+		<tika.version>1.4</tika.version>
+		<pdfbox.version>1.8.2</pdfbox.version>
+	</properties>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>6</source>
-                    <target>6</target>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                </configuration>
-            </plugin>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>6</source>
+					<target>6</target>
+					<encoding>${project.build.sourceEncoding}</encoding>
+				</configuration>
+			</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.yourcompany.hadoop.mapreduce.MapReduceDriver</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-            </plugin>
+<!--
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifest>
+							<mainClass>com.yourcompany.hadoop.mapreduce.MapReduceDriver</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+-->
 
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>scp</id>
-                        <phase>install</phase>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                        <configuration>
-                            <tasks>
-                                <scp todir="root:password@ipaddress:/root" trust="true" failonerror="false">
-                                    <fileset dir="${basedir}/target">
-                                        <include name="${project.build.finalName}*.jar"/>
-                                    </fileset>
-                                </scp>
-                            </tasks>
-                        </configuration>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>ant</groupId>
-                        <artifactId>ant-jsch</artifactId>
-                        <version>1.6.5</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>com.jcraft</groupId>
-                        <artifactId>jsch</artifactId>
-                        <version>0.1.42</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>scp</id>
+						<phase>install</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<tasks>
+								<scp todir="lab:tlftmq@211.109.9.71:/data1/lab" trust="true" failonerror="false">
+									<fileset dir="${basedir}/target">
+										<include name="${project.build.finalName}*.jar"/>
+									</fileset>
+								</scp>
+							</tasks>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>ant</groupId>
+						<artifactId>ant-jsch</artifactId>
+						<version>1.6.5</version>
+					</dependency>
+					<dependency>
+						<groupId>com.jcraft</groupId>
+						<artifactId>jsch</artifactId>
+						<version>0.1.42</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>unpack</id>
-                        <phase>test</phase>
-                        <goals>
-                            <goal>unpack</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>org.apache.pdfbox</groupId>
-                                    <artifactId>fontbox</artifactId>
-                                    <version>1.8.2</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.apache.pdfbox</groupId>
-                                    <artifactId>pdfbox</artifactId>
-                                    <version>1.8.2</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.apache.tika</groupId>
-                                    <artifactId>tika-core</artifactId>
-                                    <version>1.4</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.apache.tika</groupId>
-                                    <artifactId>tika-parsers</artifactId>
-                                    <version>1.4</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.google.guava</groupId>
-                                    <artifactId>guava</artifactId>
-                                    <version>${guava.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.apache.mahout.commons</groupId>
-                                    <artifactId>commons-cli</artifactId>
-                                    <version>${commons.cli2.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>commons-cli</groupId>
-                                    <artifactId>commons-cli</artifactId>
-                                    <version>${commons.cli.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>commons-lang</groupId>
-                                    <artifactId>commons-lang</artifactId>
-                                    <version>${commons.lang.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.apache.commons</groupId>
-                                    <artifactId>commons-math3</artifactId>
-                                    <version>${commons.math3.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>com.linkedin.datafu</groupId>
-                                    <artifactId>datafu</artifactId>
-                                    <version>${datafu.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.apache.lucene</groupId>
-                                    <artifactId>lucene-core</artifactId>
-                                    <version>${lucene.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.apache.lucene</groupId>
-                                    <artifactId>lucene-queries</artifactId>
-                                    <version>${lucene.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.apache.lucene</groupId>
-                                    <artifactId>lucene-queryparser</artifactId>
-                                    <version>${lucene.version}</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.apache.lucene</groupId>
-                                    <artifactId>lucene-analyzers-common</artifactId>
-                                    <version>${lucene.version}</version>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>unpack</id>
+						<phase>test</phase>
+						<goals>
+							<goal>unpack</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
+							<artifactItems>
+								<artifactItem>
+									<groupId>org.apache.pdfbox</groupId>
+									<artifactId>fontbox</artifactId>
+									<version>1.8.2</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.pdfbox</groupId>
+									<artifactId>pdfbox</artifactId>
+									<version>1.8.2</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.tika</groupId>
+									<artifactId>tika-core</artifactId>
+									<version>1.4</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.tika</groupId>
+									<artifactId>tika-parsers</artifactId>
+									<version>1.4</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.google.guava</groupId>
+									<artifactId>guava</artifactId>
+									<version>${guava.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.mahout.commons</groupId>
+									<artifactId>commons-cli</artifactId>
+									<version>${commons.cli2.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>commons-cli</groupId>
+									<artifactId>commons-cli</artifactId>
+									<version>${commons.cli.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>commons-lang</groupId>
+									<artifactId>commons-lang</artifactId>
+									<version>${commons.lang.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.commons</groupId>
+									<artifactId>commons-math3</artifactId>
+									<version>${commons.math3.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>com.linkedin.datafu</groupId>
+									<artifactId>datafu</artifactId>
+									<version>${datafu.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.lucene</groupId>
+									<artifactId>lucene-core</artifactId>
+									<version>${lucene.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.lucene</groupId>
+									<artifactId>lucene-queries</artifactId>
+									<version>${lucene.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.lucene</groupId>
+									<artifactId>lucene-queryparser</artifactId>
+									<version>${lucene.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.apache.lucene</groupId>
+									<artifactId>lucene-analyzers-common</artifactId>
+									<version>${lucene.version}</version>
+								</artifactItem>
+							</artifactItems>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
 
-    <dependencies>
+	<dependencies>
 
-        <!-- ======== -->
-        <!--  Hadoop  -->
-        <!-- ======== -->
+		<!-- ======== -->
+		<!--  Hadoop  -->
+		<!-- ======== -->
 
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-core</artifactId>
-            <version>${hadoop.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>xmlenc</groupId>
-                    <artifactId>xmlenc</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>tomcat</groupId>
-                    <artifactId>jasper-compiler</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>tomcat</groupId>
-                    <artifactId>jasper-runtime</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.java.dev.jets3t</groupId>
-                    <artifactId>jets3t</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.eclipse.jdt</groupId>
-                    <artifactId>core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>hsqldb</groupId>
-                    <artifactId>hsqldb</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>oro</groupId>
-                    <artifactId>oro</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>jsp-api-2.1</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>jsp-2.1</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>jetty-util</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>servlet-api-2.5</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>jetty</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.commons</groupId>
-                    <artifactId>commons-math</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-codec</groupId>
-                    <artifactId>commons-codec</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-httpclient</groupId>
-                    <artifactId>commons-httpclient</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.jackson</groupId>
-                    <artifactId>jackson-mapper-asl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-el</groupId>
-                    <artifactId>commons-el</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-digester</groupId>
-                    <artifactId>commons-digester</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-beanutils</groupId>
-                    <artifactId>commons-beanutils</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-net</groupId>
-                    <artifactId>commons-net</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-collections</groupId>
-                    <artifactId>commons-collections</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-beanutils</groupId>
-                    <artifactId>commons-beanutils-core</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-common</artifactId>
+			<version>2.6.0</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.mahout.commons</groupId>
-            <artifactId>commons-cli</artifactId>
-            <version>${commons.cli2.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-hdfs</artifactId>
+			<version>2.6.0</version>
+		</dependency>
 
-        <dependency>
-            <groupId>com.google.guava</groupId>
-            <artifactId>guava</artifactId>
-            <version>${guava.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.hadoop</groupId>
+			<artifactId>hadoop-mapreduce-client-jobclient</artifactId>
+			<version>2.6.0</version>
+		</dependency>
 
-        <!-- ================ -->
-        <!--  Apache Lucene   -->
-        <!-- ================ -->
+		<dependency>
+			<groupId>org.apache.mahout.commons</groupId>
+			<artifactId>commons-cli</artifactId>
+			<version>${commons.cli2.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-core</artifactId>
-            <version>${lucene.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>${guava.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queries</artifactId>
-            <version>${lucene.version}</version>
-        </dependency>
+		<!-- ================ -->
+		<!--  Apache Lucene   -->
+		<!-- ================ -->
 
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-queryparser</artifactId>
-            <version>${lucene.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-core</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>lucene-analyzers-common</artifactId>
-            <version>${lucene.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queries</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.lucene</groupId>
-            <artifactId>korean-analyzer</artifactId>
-            <version>20130430</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/koreananalyzer.4x-20130430.jar</systemPath>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-queryparser</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
 
-        <!-- ====== -->
-        <!--  Pig   -->
-        <!-- ====== -->
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>lucene-analyzers-common</artifactId>
+			<version>${lucene.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.pig</groupId>
-            <artifactId>pig</artifactId>
-            <version>${pig.version}</version>
-            <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>commons-cli</groupId>
-                    <artifactId>commons-cli</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-codec</groupId>
-                    <artifactId>commons-codec</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-el</groupId>
-                    <artifactId>commons-el</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-httpclient</groupId>
-                    <artifactId>commons-httpclient</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-net</groupId>
-                    <artifactId>commons-net</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>hsqldb</groupId>
-                    <artifactId>hsqldb</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.java.dev.jets3t</groupId>
-                    <artifactId>jets3t</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>net.sf.kosmosfs</groupId>
-                    <artifactId>kfs</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.hadoop</groupId>
-                    <artifactId>avro</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>jetty</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>jetty-util</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>jsp-2.1</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>jsp-api-2.1</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mortbay.jetty</groupId>
-                    <artifactId>servlet-api-2.5</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>oro</groupId>
-                    <artifactId>oro</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>tomcat</groupId>
-                    <artifactId>jasper-compiler</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>tomcat</groupId>
-                    <artifactId>jasper-runtime</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>xmlenc</groupId>
-                    <artifactId>xmlenc</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.lucene</groupId>
+			<artifactId>korean-analyzer</artifactId>
+			<version>20130430</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/koreananalyzer.4x-20130430.jar</systemPath>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.pig</groupId>
-            <artifactId>piggybank</artifactId>
-            <version>${pig.version}</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/piggybank-0.11.0.jar</systemPath>
-        </dependency>
+		<!-- ============= -->
+		<!--  Apache Tika  -->
+		<!-- ============= -->
 
-        <!-- ========== -->
-        <!--  HCatalog  -->
-        <!-- ========== -->
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-core</artifactId>
+			<version>${tika.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.hcatalog</groupId>
-            <artifactId>hcatalog-core</artifactId>
-            <version>${hcatalog.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.tika</groupId>
+			<artifactId>tika-parsers</artifactId>
+			<version>${tika.version}</version>
+		</dependency>
 
-        <!-- ====== -->
-        <!--  Hive  -->
-        <!-- ====== -->
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>pdfbox</artifactId>
+			<version>${pdfbox.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.hive</groupId>
-            <artifactId>hive-common</artifactId>
-            <version>${hive.version}</version>
-            <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.hadoop</groupId>
-                    <artifactId>hadoop-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.hive</groupId>
-                    <artifactId>hive-shims</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-lang</groupId>
-                    <artifactId>commons-lang</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging-api</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.pdfbox</groupId>
+			<artifactId>fontbox</artifactId>
+			<version>${pdfbox.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.hive</groupId>
-            <artifactId>hive-serde</artifactId>
-            <version>${hive.version}</version>
-            <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.hadoop</groupId>
-                    <artifactId>hadoop-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.thrift</groupId>
-                    <artifactId>libthrift</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.thrift</groupId>
-                    <artifactId>libfb303</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.mockito</groupId>
-                    <artifactId>mockito-all</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-lang</groupId>
-                    <artifactId>commons-lang</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-codec</groupId>
-                    <artifactId>commons-codec</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<!-- ========= -->
+		<!--  Utility  -->
+		<!-- ========= -->
 
-        <dependency>
-            <groupId>org.apache.hive</groupId>
-            <artifactId>hive-shims</artifactId>
-            <version>${hive.version}</version>
-            <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.codehaus.jackson</groupId>
-                    <artifactId>jackson-mapper-asl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.codehaus.jackson</groupId>
-                    <artifactId>jackson-core-asl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.thrift</groupId>
-                    <artifactId>libthrift</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.zookeeper</groupId>
-                    <artifactId>zookeeper</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>${commons.math3.version}</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.hive</groupId>
-            <artifactId>hive-exec</artifactId>
-            <version>${hive.version}</version>
-            <scope>compile</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.apache.hive</groupId>
-                    <artifactId>hive-builtins</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.hadoop</groupId>
-                    <artifactId>hadoop-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.hive</groupId>
-                    <artifactId>hive-metastore</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.hadoop</groupId>
-                    <artifactId>hadoop-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.antlr</groupId>
-                    <artifactId>antlr</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.antlr</groupId>
-                    <artifactId>antlr-runtime</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.zookeeper</groupId>
-                    <artifactId>zookeeper</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.google.guava</groupId>
-                    <artifactId>guava</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.thrift</groupId>
-                    <artifactId>libthrift</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.json</groupId>
-                    <artifactId>json</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-collections</groupId>
-                    <artifactId>commons-collections</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-lang</groupId>
-                    <artifactId>commons-lang</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-logging</groupId>
-                    <artifactId>commons-logging-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.apache.derby</groupId>
-                    <artifactId>derby</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.googlecode.javaewah</groupId>
-                    <artifactId>JavaEWAH</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>junit</groupId>
-                    <artifactId>junit</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+		<dependency>
+			<groupId>com.linkedin.datafu</groupId>
+			<artifactId>datafu</artifactId>
+			<version>${datafu.version}</version>
+		</dependency>
 
-        <!-- ============= -->
-        <!--  Apache Tika  -->
-        <!-- ============= -->
+		<!-- ============= -->
+		<!--  Logging API  -->
+		<!-- ============= -->
 
-        <dependency>
-            <groupId>org.apache.tika</groupId>
-            <artifactId>tika-core</artifactId>
-            <version>${tika.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<version>${commons.logging.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.tika</groupId>
-            <artifactId>tika-parsers</artifactId>
-            <version>${tika.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>pdfbox</artifactId>
-            <version>${pdfbox.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.pdfbox</groupId>
-            <artifactId>fontbox</artifactId>
-            <version>${pdfbox.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+			<scope>compile</scope>
+		</dependency>
 
-        <!-- ========= -->
-        <!--  Utility  -->
-        <!-- ========= -->
+		<!-- ======= -->
+		<!--  JUnit  -->
+		<!-- ======= -->
 
-        <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-math3</artifactId>
-            <version>${commons.math3.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>${junit.version}</version>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>com.linkedin.datafu</groupId>
-            <artifactId>datafu</artifactId>
-            <version>${datafu.version}</version>
-        </dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>${commons.collection.version}</version>
+			<scope>test</scope>
+		</dependency>
 
-        <!-- ========= -->
-        <!--  PigUnit  -->
-        <!-- ========= -->
+		<dependency>
+			<groupId>org.mortbay.jetty</groupId>
+			<artifactId>jetty</artifactId>
+			<version>${jetty.version}</version>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.pig</groupId>
-            <artifactId>pigunit</artifactId>
-            <version>${pigunit.version}</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/pigunit-0.9.jar</systemPath>
-        </dependency>
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-mapper-asl</artifactId>
+			<version>${jackson.version}</version>
+			<scope>test</scope>
+		</dependency>
 
-        <!-- ======== -->
-        <!--  MRUnit  -->
-        <!-- ======== -->
+		<dependency>
+			<groupId>org.codehaus.jackson</groupId>
+			<artifactId>jackson-core-asl</artifactId>
+			<version>${jackson.version}</version>
+			<scope>test</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>mrunit</artifactId>
-            <version>${hadoop.mrunit.version}</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/mrunit-0.9.0-hadoop1.jar</systemPath>
-        </dependency>
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
 
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
-            <version>${mokito.version}</version>
-            <scope>system</scope>
-            <systemPath>${basedir}/lib/mockito-all-1.8.5.jar</systemPath>
-        </dependency>
+	<scm>
+		<connection>scm:git:https://github.com/fharenheit/template-mapreduce.git</connection>
+		<developerConnection>scm:git:https://github.com/fharenheit/template-mapreduce.git</developerConnection>
+		<url>https://github.com/fharenheit/template-mapreduce</url>
+	</scm>
 
-        <!-- ============= -->
-        <!--  Logging API  -->
-        <!-- ============= -->
+	<issueManagement>
+		<system>Github</system>
+		<url>https://github.com/fharenheit/template-mapreduce/issues</url>
+	</issueManagement>
 
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>${commons.logging.version}</version>
-            <scope>compile</scope>
-        </dependency>
+	<organization>
+		<name>Cloudine Inc</name>
+		<url>http://www.openflamingo.org</url>
+	</organization>
 
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- ======= -->
-        <!--  JUnit  -->
-        <!-- ======= -->
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.hadoop</groupId>
-            <artifactId>hadoop-test</artifactId>
-            <version>${hadoop.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-collections</groupId>
-            <artifactId>commons-collections</artifactId>
-            <version>${commons.collection.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mortbay.jetty</groupId>
-            <artifactId>jetty</artifactId>
-            <version>${jetty.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>${jackson.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>${jackson.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>commons-httpclient</groupId>
-            <artifactId>commons-httpclient</artifactId>
-            <version>3.1</version>
-            <scope>test</scope>
-        </dependency>
-    </dependencies>
-
-    <reporting>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jxr-plugin</artifactId>
-                <version>2.3</version>
-                <configuration>
-                    <inputEncoding>${output.encoding}</inputEncoding>
-                    <outputEncoding>${output.encoding}</outputEncoding>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>findbugs-maven-plugin</artifactId>
-                <version>2.5.2</version>
-                <configuration>
-                    <outputDirectory>${project.build.directory}/findbugs</outputDirectory>
-                    <xmlOutput>true</xmlOutput>
-                    <findbugsXmlWithMessages>true</findbugsXmlWithMessages>
-                    <xmlOutputDirectory>target/findbugs</xmlOutputDirectory>
-                    <failOnError>false</failOnError>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-pmd-plugin</artifactId>
-                <version>2.7.1</version>
-                <configuration>
-                    <linkXref>true</linkXref>
-                    <sourceEncoding>${output.encoding}</sourceEncoding>
-                    <minimumTokens>100</minimumTokens>
-                    <targetJdk>1.6</targetJdk>
-                    <excludes>
-                        <exclude>org/openflamingo/**/*.java</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>taglist-maven-plugin</artifactId>
-                <version>2.4</version>
-                <configuration>
-                    <tags>
-                        <tag>TODO</tag>
-                        <tag>FIXME</tag>
-                        <tag>@todo</tag>
-                        <tag>@deprecated</tag>
-                    </tags>
-                </configuration>
-            </plugin>
-            <!-- Sonar Server required
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>2.0</version>
-            </plugin>
-            -->
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>jdepend-maven-plugin</artifactId>
-                <version>2.0-beta-2</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <dependencyDetailsEnabled>false</dependencyDetailsEnabled>
-                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                </configuration>
-            </plugin>
-        </plugins>
-    </reporting>
-
-    <scm>
-        <connection>scm:git:https://github.com/fharenheit/template-mapreduce.git</connection>
-        <developerConnection>scm:git:https://github.com/fharenheit/template-mapreduce.git</developerConnection>
-        <url>https://github.com/fharenheit/template-mapreduce</url>
-    </scm>
-
-    <repositories>
-        <repository>
-            <id>central</id>
-            <url>http://maven.opencloudengine.org/content/groups/public/</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-
-    <distributionManagement>
-        <repository>
-            <id>release</id>
-            <name>Release Repository</name>
-            <url>http://nexus.openflamingo.org/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshot</id>
-            <name>Snapshot Repository</name>
-            <url>http://nexus.openflamingo.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-
-    <issueManagement>
-        <system>Github</system>
-        <url>https://github.com/fharenheit/template-mapreduce/issues</url>
-    </issueManagement>
-
-    <organization>
-        <name>Cloudine</name>
-        <url>http://www.openflamingo.org</url>
-    </organization>
-
-    <developers>
-        <developer>
-            <id>fharenheit</id>
-            <name>Edward KIM</name>
-            <roles>
-                <role>Manager</role>
-                <role>Commiter</role>
-            </roles>
-            <url>http://www.opencloudengine.org</url>
-            <email>fharenheit@gmail.com</email>
-        </developer>
-    </developers>
+	<developers>
+		<developer>
+			<id>fharenheit</id>
+			<name>Edward KIM</name>
+			<roles>
+				<role>Manager</role>
+				<role>Commiter</role>
+			</roles>
+			<url>http://www.opencloudengine.org</url>
+			<email>fharenheit@gmail.com</email>
+		</developer>
+	</developers>
 </project>

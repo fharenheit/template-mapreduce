@@ -75,8 +75,8 @@ public class CounterUtils {
         Map<String, String> resultMap = new HashMap<String, String>();
         try {
             Counters counters = job.getCounters();
-            Collection<String> groupNames = counters.getGroupNames();
-            Iterator<String> groupIterator = groupNames.iterator();
+	        Iterable<String> groupNames = counters.getGroupNames();
+	        Iterator<String> groupIterator = groupNames.iterator();
             while (groupIterator.hasNext()) {
                 String groupName = groupIterator.next();
                 CounterGroup group = counters.getGroup(groupName);
