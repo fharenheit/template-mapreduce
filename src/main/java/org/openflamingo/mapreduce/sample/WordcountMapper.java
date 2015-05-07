@@ -38,7 +38,7 @@ public class WordcountMapper extends Mapper<LongWritable, Text, Text, IntWritabl
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
         Configuration configuration = context.getConfiguration();
-        delimiter = configuration.get("delimiter");
+        delimiter = configuration.get("delimiter", ",");
     }
 
     @Override
