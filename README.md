@@ -202,7 +202,7 @@ public class SampleDriver extends org.apache.hadoop.conf.Configured implements o
 위 형식을 실행하려면 다음과 같이 커맨드를 실행합니다.
 
 ```text
-#hadoop jar <JAR_FILE> org.openflamingo.mapreduce.sample.SampleDriver --input <IN> --output <OUT> ..
+#hadoop jar <JAR_FILE> org.openflamingo.mapreduce.sample.SampleDriver -input <IN> -output <OUT> ..
 ```
 
 #### 형식2
@@ -320,7 +320,7 @@ public class Sample2Driver extends org.apache.hadoop.conf.Configured implements 
 위 형식을 실행하려면 다음과 같이 커맨드를 실행합니다.
 
 ```text
-#hadoop jar <JAR_FILE> org.openflamingo.mapreduce.sample.SampleDriver --input <IN> --output <OUT> ..
+#hadoop jar <JAR_FILE> org.openflamingo.mapreduce.sample.Sample2Driver -input <IN> -output <OUT> -delimiter <DELIMITER> ..
 ```
 
 ### 커맨드 라인 파라미터에 JVM Args 넘기기
@@ -328,7 +328,7 @@ public class Sample2Driver extends org.apache.hadoop.conf.Configured implements 
 종종 MapReduce Job의 Configuration에 자동으로 값을 설정하고 싶을 때가 있습니다. 이 경우 형식2의 파라미터 처리를 이용하고 다음과 같이 커맨드 라인을 입력합니다.
 
 ```text
-#hadoop jar <JAR_FILE> org.openflamingo.mapreduce.sample.SampleDriver -Dmapred.job.name="Test MapReduce Job" --input <IN> --output <OUT> ..
+#hadoop jar <JAR_FILE> org.openflamingo.mapreduce.sample.Sample2Driver -Dmapred.job.name="Test MapReduce Job" -input <IN> -output <OUT> -delimiter <DELIMITER> ..
 ```
 
 위 커맨드 라인 예제에서 -Dmapred.job.name="Test MapReduce Job"와 같이 파라미터를 추가하면 Jo의 Configuration에 알아서 추가됩니다. 단, -D 커맨드는 반드시 클래스명 뒤에서만 사용해야 합니다.
