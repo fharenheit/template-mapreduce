@@ -35,7 +35,7 @@ public class JdbcLoadingDriver extends org.apache.hadoop.conf.Configured impleme
     }
 
     public int run(String[] args) throws Exception {
-        Job job = new Job();
+        Job job = Job.getInstance();
         parseArguements(args, job);
 
         job.setJarByClass(JdbcLoadingDriver.class);
