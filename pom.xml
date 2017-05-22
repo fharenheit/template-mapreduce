@@ -7,8 +7,8 @@
 	<artifactId>mapreduce-template</artifactId>
 	<version>0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
-	<name>Flamingo MapReduce Template</name>
-	<description>Flamingo MapReduce Template</description>
+	<name>MapReduce Job Template</name>
+	<description>MapReduce Job Template</description>
 	<url>http://www.opencloudengine.org</url>
 	<inceptionYear>2011</inceptionYear>
 
@@ -38,6 +38,7 @@
 		<lucene.version>4.2.0</lucene.version>
 		<tika.version>1.4</tika.version>
 		<pdfbox.version>1.8.2</pdfbox.version>
+		<spring.version>4.3.8.RELEASE</spring.version>
 	</properties>
 
 	<build>
@@ -52,7 +53,7 @@
 				</configuration>
 			</plugin>
 
-<!--
+			<!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
@@ -64,7 +65,7 @@
 					</archive>
 				</configuration>
 			</plugin>
--->
+			-->
 
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
@@ -183,6 +184,41 @@
 									<artifactId>lucene-analyzers-common</artifactId>
 									<version>${lucene.version}</version>
 								</artifactItem>
+								<artifactItem>
+									<groupId>org.springframework</groupId>
+									<artifactId>spring-jdbc</artifactId>
+									<version>${spring.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.springframework</groupId>
+									<artifactId>spring-core</artifactId>
+									<version>${spring.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.springframework</groupId>
+									<artifactId>spring-beans</artifactId>
+									<version>${spring.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.springframework</groupId>
+									<artifactId>spring-tx</artifactId>
+									<version>${spring.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.springframework</groupId>
+									<artifactId>spring-tx</artifactId>
+									<version>${spring.version}</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.postgresql</groupId>
+									<artifactId>postgresql</artifactId>
+									<version>9.4.1212.jre6</version>
+								</artifactItem>
+								<artifactItem>
+									<groupId>mysql</groupId>
+									<artifactId>mysql-connector-java</artifactId>
+									<version>5.1.42</version>
+								</artifactItem>
 							</artifactItems>
 						</configuration>
 					</execution>
@@ -225,6 +261,28 @@
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>${guava.version}</version>
+		</dependency>
+
+		<!-- =================== -->
+		<!--  Spring Framework   -->
+		<!-- =================== -->
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.42</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>9.4.1212.jre6</version>
 		</dependency>
 
 		<!-- ================ -->
