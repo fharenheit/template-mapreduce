@@ -42,7 +42,6 @@ public class JdbcLoadingMapper extends Mapper<LongWritable, Text, NullWritable, 
     private String url;
     private DriverManagerDataSource dataSource;
     private JdbcTemplate template;
-    private KeyHolder holder;
 
     @Override
     protected void setup(Context context) throws IOException, InterruptedException {
@@ -59,7 +58,6 @@ public class JdbcLoadingMapper extends Mapper<LongWritable, Text, NullWritable, 
         this.dataSource.setPassword(password);
 
         this.template = new JdbcTemplate(this.dataSource);
-        this.holder = new GeneratedKeyHolder();
     }
 
     @Override
