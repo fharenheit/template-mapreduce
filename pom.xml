@@ -36,7 +36,7 @@
 		<jetty.version>6.1.26</jetty.version>
 		<jackson.version>1.9.12</jackson.version>
 		<lucene.version>4.2.0</lucene.version>
-		<tika.version>1.4</tika.version>
+		<tika.version>1.25</tika.version>
 		<pdfbox.version>1.8.2</pdfbox.version>
 		<spring.version>4.3.8.RELEASE</spring.version>
 	</properties>
