@@ -26,7 +26,7 @@
 		<commons.logging.version>1.1.1</commons.logging.version>
 		<commons.cli.version>1.2</commons.cli.version>
 		<commons.cli2.version>2.0-mahout</commons.cli2.version>
-		<commons.collection.version>3.2.1</commons.collection.version>
+		<commons.collection.version>3.2.2</commons.collection.version>
 		<commons.math3.version>3.1.1</commons.math3.version>
 		<datafu.version>0.0.8</datafu.version>
 		<guava.version>13.0.1</guava.version>
