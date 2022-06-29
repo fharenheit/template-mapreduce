@@ -37,7 +37,7 @@
 		<jackson.version>1.9.12</jackson.version>
 		<lucene.version>4.2.0</lucene.version>
 		<tika.version>1.4</tika.version>
-		<pdfbox.version>1.8.2</pdfbox.version>
+		<pdfbox.version>1.8.16</pdfbox.version>
 		<spring.version>4.3.8.RELEASE</spring.version>
 	</properties>
 
